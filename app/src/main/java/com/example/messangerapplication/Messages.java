@@ -1,0 +1,197 @@
+package com.example.messangerapplication;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.messangerapplication.Models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class Messages extends AppCompatActivity {
+
+    private static int MAX_MESSAGE_LENGTH = 1000;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("messages");//отвечает за сообщения
+
+    EditText mEditTextMessage;
+    ImageButton mSendButton;
+    RecyclerView mMessagesRecycler;
+    Button logOff;
+
+    ArrayList<String> messages = new ArrayList<>();
+
+    private ActionBarDrawerToggle mToggle;
+
+    public String name;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_messages);
+
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();//users.child(FirebaseAuth.getInstance().getCurrentUser().
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("User").child(user.getUid()).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User contact = dataSnapshot.getValue(User.class);
+                        name = contact.getName(); // "John Doe"
+                        TextView textView = findViewById(R.id.nickname);
+                        textView.setText(name);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+        logOff =findViewById(R.id.logoff);
+        mSendButton = findViewById(R.id.send_message_b);
+        mEditTextMessage = findViewById(R.id.message_input);
+
+        mMessagesRecycler = findViewById(R.id.messages_recycler);
+        mMessagesRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        final DataAdapter dataAdapter = new DataAdapter(Messages.this,messages);
+
+        mMessagesRecycler.setAdapter(dataAdapter);
+
+        logOff.setOnClickListener(new View.OnClickListener() {// завершение работы приложения
+            @Override
+            public void onClick(View view) {
+                finishAffinity();
+            }
+        });
+
+        mSendButton.setOnClickListener(new View.OnClickListener() {//отправка сообщения по клику
+            @Override
+            public void onClick(View v) {
+                String msg = mEditTextMessage.getText().toString();
+                if(msg.equals("")){
+                    Toast.makeText(getApplicationContext(),"Введите сообщение",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(msg.length() > MAX_MESSAGE_LENGTH){
+                    Toast.makeText(getApplicationContext(),"Слишком длинное сообщение",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                myRef.push().setValue(msg);
+                //myRef.push().setValue(name);
+                mEditTextMessage.setText("");
+            }
+        });
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String msg = dataSnapshot.getValue(String.class);
+                messages.add(msg);
+                dataAdapter.notifyDataSetChanged();
+                mMessagesRecycler.smoothScrollToPosition(messages.size());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawer);//боковое меню
+        mToggle = new ActionBarDrawerToggle(Messages.this, mDrawerLayout,R.string.open,R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {//открытие бокового меню и скрытие клавиатуры
+
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                InputMethodManager imm = (InputMethodManager) Messages.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                assert imm != null;
+                if (imm.isAcceptingText()){
+                    View v = getCurrentFocus();
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
+        mToggle.syncState();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {//боковое менб открытие кнопкой
+
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert imm != null;
+        if (imm.isAcceptingText()){
+            View v = getCurrentFocus();
+            assert v != null;
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+        if(mToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}

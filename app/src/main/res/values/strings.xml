@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MessangerApplication</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="registration">Registration</string>
+    <string name="sing_in">Sing in</string>
+</resources>

@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "251309149320",
+    "firebase_url": "https://messanger-c258d.firebaseio.com",
+    "project_id": "messanger-c258d",
+    "storage_bucket": "messanger-c258d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251309149320:android:bddde9fac070d993a3233d",
+        "android_client_info": {
+          "package_name": "com.example.messangerapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251309149320-u3r46ahofrdhnuik2beq0q7091ai5dl7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB03VvsTE1qiScHhKoYaqBmCFdsEpmKcIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251309149320-u3r46ahofrdhnuik2beq0q7091ai5dl7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251309149320:android:91e76dea48846f66a3233d",
+        "android_client_info": {
+          "package_name": "msger.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251309149320-f2orlq63tehsuoigucfvtob4ejqa58hf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "msger.com",
+            "certificate_hash": "07228159d744ce1a4b6d49c8a86426bd5458c6af"
+          }
+        },
+        {
+          "client_id": "251309149320-u3r46ahofrdhnuik2beq0q7091ai5dl7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB03VvsTE1qiScHhKoYaqBmCFdsEpmKcIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251309149320-u3r46ahofrdhnuik2beq0q7091ai5dl7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "651163117569",
+    "firebase_url": "https://msger-fc690.firebaseio.com",
+    "project_id": "msger-fc690",
+    "storage_bucket": "msger-fc690.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651163117569:android:5b4250628d71b9e0f1b800",
+        "android_client_info": {
+          "package_name": "com.example.messangerapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651163117569-rh2220mrt41484msdpuq1bm8a4jjc80e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzMg9oKNUxfA3i-Z19P8jej9jkFKiUU2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651163117569-rh2220mrt41484msdpuq1bm8a4jjc80e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651163117569:android:5f2357fc077ac6e5f1b800",
+        "android_client_info": {
+          "package_name": "com.example.msger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651163117569-rh2220mrt41484msdpuq1bm8a4jjc80e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzMg9oKNUxfA3i-Z19P8jej9jkFKiUU2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651163117569-rh2220mrt41484msdpuq1bm8a4jjc80e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
