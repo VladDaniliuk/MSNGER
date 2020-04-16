@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -49,21 +50,21 @@ public class Messages extends AppCompatActivity {
 
     public String name;
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
 
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();//users.child(FirebaseAuth.getInstance().getCurrentUser().
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("User").child(user.getUid()).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User contact = dataSnapshot.getValue(User.class);
-                        name = contact.getName(); // "John Doe"
+                        name = contact.getName();
                         TextView textView = findViewById(R.id.nickname);
                         textView.setText(name);
                     }
@@ -108,13 +109,14 @@ public class Messages extends AppCompatActivity {
                     return;
                 }
 
-                myRef.push().setValue(msg);
-                //myRef.push().setValue(name);
+                //String UId=user.getUid();
+                //myRef.push().child(UId).setValue(msg);
+                myRef.push()/*.child("text")*/.setValue(msg);
                 mEditTextMessage.setText("");
             }
         });
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef/*.child("text")*/.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String msg = dataSnapshot.getValue(String.class);

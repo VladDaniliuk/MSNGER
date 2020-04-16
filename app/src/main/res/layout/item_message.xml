@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
+        app:cardElevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:text="myMessage"
-            android:textColor="	#000000"
+            android:textColor="@color/colorPrimary"
             android:textIsSelectable="true"
             android:textSize="24sp" />
         </LinearLayout>
