@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.messangerapplication.Models.Mess;
+import com.example.messangerapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +50,7 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Mess msg = messages.get(position);
         holder.message.setText(msg.getMes());
         holder.sender.setText(msg.getUs());
@@ -58,14 +60,13 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
     public int getItemCount() {
         return messages.size();
     }
-/*
+
     @Override
     public int getItemViewType(int position) {
-
-        if(messages.get(position).getUs() == users.child("User").child(U.getUid()).child("name").toString()) {
+        if(messages.get(position).getUid().equals(U.getUid())) {
             return MSG_TYPE_RIGHT;
         } else {
             return MSG_TYPE_LEFT;
         }
-    }*/
+    }
 }

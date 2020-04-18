@@ -33,12 +33,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Messages extends AppCompatActivity {
 
     private static int MAX_MESSAGE_LENGTH = 1000;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Message");//отвечает за сообщения
+
+    DatabaseReference mR;
 
     EditText mEditTextMessage;
     ImageButton mSendButton;
@@ -57,6 +60,7 @@ public class Messages extends AppCompatActivity {
     DataAdapter dataAdapter;
 
 
+    ValueEventListener seenListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,9 +140,12 @@ public class Messages extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String msg = dataSnapshot.child("mes").getValue(String.class);
                 String usr = dataSnapshot.child("us").getValue(String.class);
+                String uid = dataSnapshot.child("uid").getValue(String.class);
                 Mess mess = new Mess();
                 mess.setMes(msg);
                 mess.setUs(usr);
+                mess.setUid(uid);
+                mess.setIsR(false);
                 messages.add(mess);
                 dataAdapter.notifyDataSetChanged();
                 mMessagesRecycler.smoothScrollToPosition(messages.size());
