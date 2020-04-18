@@ -17,9 +17,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.messangerapplication.Models.Mess;
 import com.example.messangerapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,21 +38,25 @@ import java.util.Objects;
 public class Messages extends AppCompatActivity {
 
     private static int MAX_MESSAGE_LENGTH = 1000;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("messages");//отвечает за сообщения
+    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Message");//отвечает за сообщения
 
     EditText mEditTextMessage;
     ImageButton mSendButton;
     RecyclerView mMessagesRecycler;
     Button logOff;
 
-    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<Mess> messages = new ArrayList<>();
 
     private ActionBarDrawerToggle mToggle;
 
     public String name;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+    DataAdapter dataAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +83,19 @@ public class Messages extends AppCompatActivity {
 
 
 
+
+
+
         logOff =findViewById(R.id.logoff);
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
 
         mMessagesRecycler = findViewById(R.id.messages_recycler);
-        mMessagesRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mMessagesRecycler.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+
+        mMessagesRecycler.setLayoutManager(linearLayoutManager);
 
         final DataAdapter dataAdapter = new DataAdapter(Messages.this,messages);
 
@@ -109,18 +122,24 @@ public class Messages extends AppCompatActivity {
                     return;
                 }
 
-                //String UId=user.getUid();
-                //myRef.push().child(UId).setValue(msg);
-                myRef.push()/*.child("text")*/.setValue(msg);
+                Mess mess = new Mess();
+                mess.setUs(name);
+                mess.setMes(msg);
+                mess.setUid(user.getUid());
+                myRef.push().setValue(mess);
                 mEditTextMessage.setText("");
             }
         });
 
-        myRef/*.child("text")*/.addChildEventListener(new ChildEventListener() {
+        myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String msg = dataSnapshot.getValue(String.class);
-                messages.add(msg);
+                String msg = dataSnapshot.child("mes").getValue(String.class);
+                String usr = dataSnapshot.child("us").getValue(String.class);
+                Mess mess = new Mess();
+                mess.setMes(msg);
+                mess.setUs(usr);
+                messages.add(mess);
                 dataAdapter.notifyDataSetChanged();
                 mMessagesRecycler.smoothScrollToPosition(messages.size());
             }
