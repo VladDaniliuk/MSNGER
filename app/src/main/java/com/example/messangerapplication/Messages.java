@@ -9,15 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,8 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Messages extends AppCompatActivity {
@@ -48,6 +45,7 @@ public class Messages extends AppCompatActivity {
     ImageButton mSendButton;
     RecyclerView mMessagesRecycler;
     Button logOff;
+    Button Notes;
 
     ArrayList<Mess> messages = new ArrayList<>();
 
@@ -82,7 +80,9 @@ public class Messages extends AppCompatActivity {
                     }
                 });
 
+        Notes = findViewById(R.id.nav_notes);
         logOff =findViewById(R.id.logoff);
+
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
 
@@ -90,7 +90,6 @@ public class Messages extends AppCompatActivity {
         mMessagesRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
-
         mMessagesRecycler.setLayoutManager(linearLayoutManager);
 
         final DataAdapter dataAdapter = new DataAdapter(Messages.this,messages);
@@ -101,6 +100,14 @@ public class Messages extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finishAffinity();
+            }
+        });
+
+        Notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Messages.this,Notes.class));
+                finish();
             }
         });
 
@@ -204,6 +211,8 @@ public class Messages extends AppCompatActivity {
 
         mToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
     }
 
 

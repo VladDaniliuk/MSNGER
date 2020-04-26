@@ -64,7 +64,15 @@
             android:orientation="vertical"
             android:id="@id/navigation_view"
             android:fitsSystemWindows="true">
-
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nav_notes"
+                android:icon="@drawable/notes"
+                android:text="Notes"
+                android:textAllCaps="false"
+                android:background="@color/white"
+                android:fontFamily="@font/productsansstyle"/>
             <Button
                 android:layout_gravity="bottom"
                 android:layout_width="match_parent"

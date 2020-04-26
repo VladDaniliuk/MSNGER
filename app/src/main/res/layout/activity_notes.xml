@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:id = "@+id/drawer">
+    tools:context=".Notes"
+    android:id = "@+id/drawer_notes">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="msger.com.Messages">
+        tools:context="msger.com.Notes">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messages_recycler"
+            android:id="@+id/notes_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
@@ -25,25 +25,24 @@
             android:weightSum="2">
 
             <EditText
-                android:id="@+id/message_input"
+                android:id="@+id/note_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Введите сообщение"
+                android:hint="Введите заметку"
                 android:textSize="24sp"
                 android:layout_weight="2"
                 android:importantForAutofill="no"
                 android:inputType="text" />
             <ImageButton
                 android:layout_weight="1"
-                android:id="@+id/send_message_b"
+                android:id="@+id/send_note_b"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
-                android:background="@drawable/send_mess_b_oval"
-                android:src="@drawable/send_mess_b"
+                android:background="@drawable/send_note_b_oval"
+                android:src="@drawable/send_note_b"
                 tools:ignore="RtlHardcoded"
                 android:contentDescription="send_message_button" />
         </LinearLayout>
     </LinearLayout>
-
 </androidx.drawerlayout.widget.DrawerLayout>
