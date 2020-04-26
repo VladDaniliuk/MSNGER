@@ -1,16 +1,15 @@
 package com.example.messangerapplication.Models;
 
 public class Mess {
-    String mes,uid,us;
-    boolean isR;
+    String mes,uid,us,mesuid;
 
     public  Mess(){}
 
-    public Mess(String a, String b, String c,boolean d){
+    public Mess(String a, String b, String c, String e){
         mes = a;
         uid = b;
         us = c;
-        isR = d;
+        mesuid = e;
     }
 
     public String getMes() {
@@ -37,11 +36,11 @@ public class Mess {
         this.us = us;
     }
 
-    public boolean getIsR() {
-        return isR;
+    public String getMesuid() {
+        return mesuid;
     }
 
-    public void setIsR(boolean isR) {
-        this.isR = isR;
+    public void setMesuid(String mesuid) {
+        this.mesuid = mesuid;
     }
 }

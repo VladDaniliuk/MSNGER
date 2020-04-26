@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Messages extends AppCompatActivity {
@@ -59,14 +60,10 @@ public class Messages extends AppCompatActivity {
 
     DataAdapter dataAdapter;
 
-
-    ValueEventListener seenListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("User").child(user.getUid()).addListenerForSingleValueEvent(
@@ -84,11 +81,6 @@ public class Messages extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
-
 
         logOff =findViewById(R.id.logoff);
         mSendButton = findViewById(R.id.send_message_b);
@@ -112,17 +104,21 @@ public class Messages extends AppCompatActivity {
             }
         });
 
+
+
         mSendButton.setOnClickListener(new View.OnClickListener() {//отправка сообщения по клику
             @Override
             public void onClick(View v) {
                 String msg = mEditTextMessage.getText().toString();
                 if(msg.equals("")){
-                    Toast.makeText(getApplicationContext(),"Введите сообщение",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Введите сообщение",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(msg.length() > MAX_MESSAGE_LENGTH){
-                    Toast.makeText(getApplicationContext(),"Слишком длинное сообщение",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Слишком длинное сообщение",Toast
+                            .LENGTH_SHORT).show();
                     return;
                 }
 
@@ -130,7 +126,10 @@ public class Messages extends AppCompatActivity {
                 mess.setUs(name);
                 mess.setMes(msg);
                 mess.setUid(user.getUid());
-                myRef.push().setValue(mess);
+                DatabaseReference mR =  myRef.push();
+                String uid = mR.getKey();
+                mess.setMesuid(uid);
+                mR.setValue(mess);
                 mEditTextMessage.setText("");
             }
         });
@@ -145,7 +144,6 @@ public class Messages extends AppCompatActivity {
                 mess.setMes(msg);
                 mess.setUs(usr);
                 mess.setUid(uid);
-                mess.setIsR(false);
                 messages.add(mess);
                 dataAdapter.notifyDataSetChanged();
                 mMessagesRecycler.smoothScrollToPosition(messages.size());
@@ -177,7 +175,8 @@ public class Messages extends AppCompatActivity {
 
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-                InputMethodManager imm = (InputMethodManager) Messages.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) Messages.this.getSystemService(Context
+                        .INPUT_METHOD_SERVICE);
                 assert imm != null;
                 if (imm.isAcceptingText()){
                     View v = getCurrentFocus();
@@ -207,10 +206,13 @@ public class Messages extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {//боковое менб открытие кнопкой
 
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context
+                .INPUT_METHOD_SERVICE);
         assert imm != null;
         if (imm.isAcceptingText()){
             View v = getCurrentFocus();

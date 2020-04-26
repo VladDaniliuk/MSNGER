@@ -8,28 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.messangerapplication.Models.Mess;
-import com.example.messangerapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    public static final int MSG_TYPE_LEFT = 0;
-    public static final int MSG_TYPE_RIGHT = 1;
+    private static final int MSG_TYPE_LEFT = 0;
+    private static final int MSG_TYPE_RIGHT = 1;
 
     private ArrayList<Mess> messages;
     private LayoutInflater inflater;
 
-    DatabaseReference users = FirebaseDatabase.getInstance().getReference();
-
-    FirebaseUser U = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser U = FirebaseAuth.getInstance().getCurrentUser();
 
     DataAdapter(Messages context, ArrayList<Mess> messages){
         this.messages = messages;

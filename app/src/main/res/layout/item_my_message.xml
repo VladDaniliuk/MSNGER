@@ -39,12 +39,5 @@
                     android:textIsSelectable="true"
                     android:textSize="24sp" />
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_seen"
-            android:text="seen"
-            android:layout_below="@+id/mess"
-            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 </RelativeLayout>
