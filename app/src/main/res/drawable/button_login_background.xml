@@ -4,9 +4,9 @@
     android:layout_width="match_parent">
     <item>
         <shape android:shape = "rectangle">
-            <size android:width="100dp" android:height="100dp" />
-            <solid android:color="#FFCF41" />
-            <corners android:radius="10dp" />
+            <size android:width="100dp" android:height="50dp" />
+            <solid android:color="#F3B600" />
+            <corners android:radius="1dp" />
         </shape>
     </item>
 </layer-list>
