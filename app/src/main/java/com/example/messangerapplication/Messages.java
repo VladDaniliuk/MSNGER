@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.messangerapplication.Models.Mess;
 import com.example.messangerapplication.Models.User;
+import com.example.messangerapplication.Notification.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -46,6 +48,7 @@ public class Messages extends AppCompatActivity {
     RecyclerView mMessagesRecycler;
     Button logOff;
     Button Notes;
+    Button Ad;
 
     ArrayList<Mess> messages = new ArrayList<>();
 
@@ -110,7 +113,6 @@ public class Messages extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
         mSendButton.setOnClickListener(new View.OnClickListener() {//отправка сообщения по клику
@@ -212,6 +214,7 @@ public class Messages extends AppCompatActivity {
         mToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        updateToken(FirebaseInstanceId.getInstance().getToken());
 
     }
 
@@ -232,5 +235,11 @@ public class Messages extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateToken(String token) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        reference.child(user.getUid()).setValue(token1);
     }
 }

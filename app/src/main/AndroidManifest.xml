@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Notes" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2830062687302437~7300093995"/>
     </application>
 
 </manifest>

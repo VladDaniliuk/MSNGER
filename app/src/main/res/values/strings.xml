@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MessangerApplication</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="registration">Registration</string>
     <string name="sing_in">Sing in</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2830062687302437/9543113959</string>
 </resources>
