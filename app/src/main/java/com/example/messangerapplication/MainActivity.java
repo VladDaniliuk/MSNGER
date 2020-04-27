@@ -1,17 +1,24 @@
 package com.example.messangerapplication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.messangerapplication.Models.User;
@@ -39,6 +46,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        {
+            //Remove title bar
+            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+            //Remove notification bar
+            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.hide();
+        }
+
+        startRotationTimer();
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -186,5 +207,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void startRotationTimer() {
+        new CountDownTimer(5000, 5000) {
+            public void onTick(long millisUntilFinished) {}
+            public void onFinish() {
+                performRotation();
+            }
+        }.start();
+    }
+
+    private void performRotation() {
+        ImageView image_logo_front = (ImageView) findViewById(R.id.imageView_logo_front);
+        RotateAnimation rotate = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF,
+                0.5f,  Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setDuration(500);
+        image_logo_front.startAnimation(rotate);
+        startRotationTimer();
     }
 }
