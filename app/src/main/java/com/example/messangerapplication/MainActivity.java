@@ -20,10 +20,13 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.messangerapplication.Models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
@@ -46,6 +49,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        auth = FirebaseAuth.getInstance();
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            auth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MainActivity.this,
+                                "Authorisation successful!",
+                                Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this,Messages.class));
+                        finish();
+                    } else {
+                        Toast.makeText(MainActivity.this,
+                                "Failed to authorise user.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
         {
             //Remove title bar
