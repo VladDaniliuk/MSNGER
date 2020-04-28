@@ -25,12 +25,14 @@
                 tools:ignore="MissingConstraints"
                 android:orientation="vertical">
             <TextView
+                android:fontFamily="@font/productsans"
                 android:id="@+id/sender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sender"
                 android:textColor="@color/blue"/>
             <TextView
+                android:fontFamily="@font/productsans"
                 android:id="@+id/message_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

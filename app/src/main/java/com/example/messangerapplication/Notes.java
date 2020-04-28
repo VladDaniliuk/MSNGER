@@ -46,6 +46,7 @@ public class Notes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        setTitle("Notes");
 
         ActionBar actionBar =getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -133,15 +134,6 @@ public class Notes extends AppCompatActivity {
 
         FirebaseRecyclerAdapter<String,ViewHolderNote> adapter;
         mNotesRecycler.setHasFixedSize(true);
-
-
-
-
-
-
-
-
-
     }
 
     @Override

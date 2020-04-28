@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         {
             //Remove title bar
-            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
             //Remove notification bar
-            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             ActionBar actionBar = getSupportActionBar();
             actionBar.hide();
@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
 
         root = findViewById(R.id.root_element);
-
-        auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         users = db.getReference("Users");
 
