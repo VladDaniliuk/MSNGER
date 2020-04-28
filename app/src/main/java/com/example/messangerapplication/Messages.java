@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.example.messangerapplication.Models.Mess;
 import com.example.messangerapplication.Models.User;
-import com.example.messangerapplication.Notification.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -102,7 +101,9 @@ public class Messages extends AppCompatActivity {
         logOff.setOnClickListener(new View.OnClickListener() {// завершение работы приложения
             @Override
             public void onClick(View view) {
-                finishAffinity();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(Messages.this,MainActivity.class));
+                finish();
             }
         });
 
@@ -213,9 +214,6 @@ public class Messages extends AppCompatActivity {
 
         mToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        updateToken(FirebaseInstanceId.getInstance().getToken());
-
     }
 
 
@@ -235,11 +233,5 @@ public class Messages extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void updateToken(String token) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
-        Token token1 = new Token(token);
-        reference.child(user.getUid()).setValue(token1);
     }
 }
