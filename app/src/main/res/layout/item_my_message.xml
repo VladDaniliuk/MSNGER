@@ -22,13 +22,15 @@
             android:orientation="vertical"
             android:layout_gravity="right">
             <TextView
-                    android:id="@+id/sender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sender"
-                    android:textColor="@color/blue"
-                    android:layout_gravity="right"/>
+                android:fontFamily="@font/productsans"
+                android:id="@+id/sender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sender"
+                android:textColor="@color/blue"
+                android:layout_gravity="right"/>
                 <TextView
+                    android:fontFamily="@font/productsans"
                     android:layout_gravity="right"
                     android:id="@+id/message_item"
                     android:layout_width="wrap_content"

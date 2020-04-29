@@ -47,7 +47,7 @@ public class Messages extends AppCompatActivity {
     RecyclerView mMessagesRecycler;
     Button logOff;
     Button Notes;
-    Button Ad;
+    Button Settings;
 
     ArrayList<Mess> messages = new ArrayList<>();
 
@@ -64,6 +64,7 @@ public class Messages extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
+        setTitle("Messages");
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("User").child(user.getUid()).addListenerForSingleValueEvent(
@@ -84,6 +85,7 @@ public class Messages extends AppCompatActivity {
 
         Notes = findViewById(R.id.nav_notes);
         logOff =findViewById(R.id.logoff);
+        Settings = findViewById(R.id.nav_settings);
 
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
@@ -97,6 +99,14 @@ public class Messages extends AppCompatActivity {
         final DataAdapter dataAdapter = new DataAdapter(Messages.this,messages);
 
         mMessagesRecycler.setAdapter(dataAdapter);
+
+        Settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Messages.this,SettingsActivity.class));
+                finish();
+            }
+        });
 
         logOff.setOnClickListener(new View.OnClickListener() {// завершение работы приложения
             @Override
@@ -216,6 +226,17 @@ public class Messages extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
+    private static long back_pressed;
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis())
+            super.onBackPressed();
+        else
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        back_pressed = System.currentTimeMillis();
+    }
 
 
     @Override

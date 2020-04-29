@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:fontFamily="@font/productsans"
         android:id="@+id/note_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -46,6 +46,7 @@ public class Notes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        setTitle("Notes");
 
         ActionBar actionBar =getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -133,15 +134,6 @@ public class Notes extends AppCompatActivity {
 
         FirebaseRecyclerAdapter<String,ViewHolderNote> adapter;
         mNotesRecycler.setHasFixedSize(true);
-
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -154,5 +146,17 @@ public class Notes extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private static long back_pressed;
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis())
+            super.onBackPressed();
+        else
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        back_pressed = System.currentTimeMillis();
     }
 }

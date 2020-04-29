@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         {
             //Remove title bar
-            this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
             //Remove notification bar
-            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             ActionBar actionBar = getSupportActionBar();
             actionBar.hide();
@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
 
         root = findViewById(R.id.root_element);
-
-        auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         users = db.getReference("Users");
 
@@ -248,5 +246,17 @@ public class MainActivity extends AppCompatActivity {
         rotate.setDuration(500);
         image_logo_front.startAnimation(rotate);
         startRotationTimer();
+    }
+
+    private static long back_pressed;
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis())
+            super.onBackPressed();
+        else
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        back_pressed = System.currentTimeMillis();
     }
 }

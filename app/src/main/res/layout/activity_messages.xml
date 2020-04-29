@@ -67,25 +67,35 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nav_notes"
-                android:icon="@drawable/notes"
-                android:text="Notes"
-                android:textAllCaps="false"
-                android:background="@color/white"
-                android:fontFamily="@font/productsansstyle"/>
-            <Button
-                android:layout_alignParentBottom = "true"
-                android:layout_gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/logoff"
-                android:text="Log off"
-                android:textAllCaps="false"
-                android:background="@color/white"
-                android:fontFamily="@font/productsansstyle"/>
+                <Button
+                    android:id="@+id/nav_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:fontFamily="@font/productsansstyle"
+                    android:icon="@drawable/notes"
+                    android:text="Notes"
+                    android:textAllCaps="false" />
+                <Button
+                    android:id="@+id/nav_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:fontFamily="@font/productsansstyle"
+                    android:icon="@drawable/notes"
+                    android:text="Settings"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/nav_notes"/>
+                <Button
+                    android:layout_alignParentBottom = "true"
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/logoff"
+                    android:text="Log off"
+                    android:textAllCaps="false"
+                    android:background="@color/white"
+                    android:fontFamily="@font/productsansstyle"/>
             </RelativeLayout>
         </com.google.android.material.navigation.NavigationView>
     </LinearLayout>
