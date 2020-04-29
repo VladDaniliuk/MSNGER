@@ -74,7 +74,7 @@ public class ChangeNameActivity extends AppCompatActivity {
                             });
                     Toast.makeText(getBaseContext(), "Change name complite!",
                             Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ChangeNameActivity.this,Messages.class));
+                    startActivity(new Intent(ChangeNameActivity.this,SettingsActivity.class));
                     finish();
                 }
                 return true;

@@ -112,7 +112,7 @@ public class Messages extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Messages.this,MainActivity.class));
+                startActivity(new Intent(Messages.this,LogRegActivity.class));
                 finish();
             }
         });
