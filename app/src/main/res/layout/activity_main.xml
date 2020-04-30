@@ -18,12 +18,14 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="100dp"
+            android:layout_marginTop="100dp"
             android:background="@color/colorPrimary"
             android:fontFamily="@font/productsansstyle"
             android:text="@string/sing_in"
-            android:textSize="24sp"
             android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_logoafter"
             app:layout_constraintBottom_toTopOf="@+id/btnRegister"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -38,31 +40,44 @@
             android:background="@color/colorPrimary"
             android:fontFamily="@font/productsansstyle"
             android:text="@string/registration"
-            android:textSize="20sp"
             android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/imageView_logoafter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
             android:id="@+id/imageView_logo_back"
             android:layout_width="190dp"
             android:layout_height="190dp"
-            android:layout_marginTop="150dp"
+            android:layout_alignParentTop="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_launcher_background" />
 
-        <ImageView
-            android:id="@+id/imageView_logo_front"
-            android:layout_width="190dp"
-            android:layout_height="190dp"
-            android:layout_marginTop="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            <ImageView
+                android:id="@+id/imageView_logo_front"
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+
+
+        </RelativeLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

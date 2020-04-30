@@ -8,9 +8,13 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,14 +45,23 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,
                                 "Failed to authorise user.",
                                 Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, LogRegActivity.class));
-                        finish();
+                        startRotationTimer();
                     }
                 }
             });
         } else {
-            startActivity(new Intent(MainActivity.this, LogRegActivity.class));
-            finish();
+            startRotationTimer();
         }
+    }
+
+    private void startRotationTimer() {
+        new CountDownTimer(700, 100) {
+            public void onTick(long millisUntilFinished) {}
+            public void onFinish() {
+
+                startActivity(new Intent(MainActivity.this, LogRegActivity.class));
+                finish();
+            }
+        }.start();
     }
 }
