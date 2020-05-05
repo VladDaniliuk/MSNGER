@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/note_item_with_button"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
-
-    <TextView
-        android:fontFamily="@font/productsans"
-        android:id="@+id/note_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:padding="4dp"
-        android:text="myNote"
-        android:textLocale="@android:string/ok"
-        android:textColor="@color/colorPrimary"
-        android:textIsSelectable="true"
-        android:textSize="28sp" />
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:longClickable="true">
+        <TextView
+            android:id="@+id/note_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/productsans"
+            android:padding="4dp"
+            android:textColor="@color/colorPrimary"
+            android:textIsSelectable="false"
+            android:textSize="28sp" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="3sp"

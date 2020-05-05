@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,7 +69,7 @@ public class Messages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
         setTitle("Messages");
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("User").child(user.getUid()).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -112,7 +116,7 @@ public class Messages extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Messages.this,MainActivity.class));
+                startActivity(new Intent(Messages.this,LogRegActivity.class));
                 finish();
             }
         });

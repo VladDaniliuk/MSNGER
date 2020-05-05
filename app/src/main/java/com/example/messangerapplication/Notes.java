@@ -1,11 +1,10 @@
 package com.example.messangerapplication;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.messangerapplication.Models.Note;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -28,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -47,8 +44,8 @@ public class Notes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         setTitle("Notes");
-
-        ActionBar actionBar =getSupportActionBar();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -61,7 +58,7 @@ public class Notes extends AppCompatActivity {
 
         mNotesRecycler.setLayoutManager(linearLayoutManager);
 
-        final NoteAdapter noteAdapter = new NoteAdapter(Notes.this,notes);
+        final NoteAdapter noteAdapter = new NoteAdapter(Notes.this, notes);
 
         mNotesRecycler.setAdapter(noteAdapter);
 
@@ -72,14 +69,14 @@ public class Notes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nt = mEditTextNote.getText().toString();
-                if(nt.equals("")){
-                    Toast.makeText(getApplicationContext(),"Введите заметку",
+                if (nt.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Введите заметку",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(nt.length() > MAX_NOTE_LENGTH){
-                    Toast.makeText(getApplicationContext(),"Слишком длинная заметка",Toast
+                if (nt.length() > MAX_NOTE_LENGTH) {
+                    Toast.makeText(getApplicationContext(), "Слишком длинная заметка", Toast
                             .LENGTH_SHORT).show();
                     return;
                 }
@@ -87,7 +84,7 @@ public class Notes extends AppCompatActivity {
                 Note note = new Note();
                 note.setNot(nt);
                 note.setUid(user.getUid());
-                DatabaseReference mR =  myRef.push();
+                DatabaseReference mR = myRef.push();
                 String uid = mR.getKey();
                 note.setMesuid(uid);
                 mR.setValue(note);
@@ -132,7 +129,7 @@ public class Notes extends AppCompatActivity {
             }
         });
 
-        FirebaseRecyclerAdapter<String,ViewHolderNote> adapter;
+        FirebaseRecyclerAdapter<String, ViewHolderNote> adapter;
         mNotesRecycler.setHasFixedSize(true);
     }
 
@@ -140,7 +137,7 @@ public class Notes extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(Notes.this,Messages.class));
+                startActivity(new Intent(Notes.this, Messages.class));
                 finish();
                 return true;
             default:
