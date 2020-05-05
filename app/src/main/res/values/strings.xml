@@ -7,4 +7,9 @@
     <string name="sing_in">Sing in</string>
     <string name="banner_ad_unit_id">ca-app-pub-2830062687302437/9543113959</string>
     <string name="imageView_logo_front">imageView_logo_front</string>
+    <string name="notes">Notes</string>
+    <string name="settings">Settings</string>
+    <string name="log_off">Log off</string>
+    <string name="text">text</string>
+    <string name="channels">Channels</string>
 </resources>

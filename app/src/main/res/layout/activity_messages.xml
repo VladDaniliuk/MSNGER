@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="text"
+                android:text="@string/text"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:fontFamily="@font/productsansstyle"/>
@@ -73,8 +73,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:fontFamily="@font/productsansstyle"
-                    android:icon="@drawable/notes"
-                    android:text="Notes"
+                    android:text="@string/notes"
                     android:textAllCaps="false" />
                 <Button
                     android:id="@+id/nav_settings"
@@ -82,17 +81,38 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:fontFamily="@font/productsansstyle"
-                    android:icon="@drawable/notes"
-                    android:text="Settings"
+                    android:text="@string/settings"
                     android:textAllCaps="false"
                     android:layout_below="@+id/nav_notes"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/nav_settings">
+                    <Button
+                        android:id="@+id/nav_channels"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:fontFamily="@font/productsansstyle"
+                        android:text="@string/channels"
+                        android:textAllCaps="false"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/channels_recycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Version: 0.1.4"/>
+                </LinearLayout>
                 <Button
                     android:layout_alignParentBottom = "true"
                     android:layout_gravity="bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/logoff"
-                    android:text="Log off"
+                    android:text="@string/log_off"
                     android:textAllCaps="false"
                     android:background="@color/white"
                     android:fontFamily="@font/productsansstyle"/>

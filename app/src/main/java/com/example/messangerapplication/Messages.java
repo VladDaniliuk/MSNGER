@@ -15,8 +15,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.messangerapplication.Models.Mess;
+import com.example.messangerapplication.Models.Note;
 import com.example.messangerapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,6 +55,7 @@ public class Messages extends AppCompatActivity {
     Button logOff;
     Button Notes;
     Button Settings;
+    Button Channels;
 
     ArrayList<Mess> messages = new ArrayList<>();
 
@@ -90,6 +94,7 @@ public class Messages extends AppCompatActivity {
         Notes = findViewById(R.id.nav_notes);
         logOff =findViewById(R.id.logoff);
         Settings = findViewById(R.id.nav_settings);
+        Channels = findViewById(R.id.nav_channels);
 
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
@@ -129,6 +134,26 @@ public class Messages extends AppCompatActivity {
             }
         });
 
+        Channels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RecyclerView channels = findViewById(R.id.channels_recycle);
+                if (channels.getVisibility() == View.INVISIBLE) {
+                    ViewGroup.LayoutParams params = channels.getLayoutParams();
+                    params.height = 300;
+                    channels.setLayoutParams(params);
+                    channels.setVisibility(View.VISIBLE);
+
+
+                }
+                else {
+                    ViewGroup.LayoutParams params = channels.getLayoutParams();
+                    params.height = 0;
+                    channels.setLayoutParams(params);
+                    channels.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
         mSendButton.setOnClickListener(new View.OnClickListener() {//отправка сообщения по клику
             @Override
