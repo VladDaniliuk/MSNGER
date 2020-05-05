@@ -2,6 +2,7 @@ package com.example.messangerapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -44,6 +45,7 @@ public class LogRegActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startRotationTimer();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         auth = FirebaseAuth.getInstance();
         {
             ActionBar actionBar = getSupportActionBar();
