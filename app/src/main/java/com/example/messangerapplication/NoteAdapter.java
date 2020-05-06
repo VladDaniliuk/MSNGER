@@ -37,10 +37,25 @@ public class NoteAdapter extends RecyclerView.Adapter<ViewHolderNote> {
         holder.noteAll.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if(holder.delete.getVisibility() == View.GONE) {
+                    holder.delete.setVisibility(View.VISIBLE);
+                    int calc = (int)holder.RL.getBottom();
+                     int calc2 = (int)holder.RL.getTop();
+                    int calc3 = calc - calc2 - 5;
+                    holder.delete.setHeight(calc3);
+                } else {
+                    holder.delete.setVisibility(View.GONE);
+                }
+                return true;
+            }
+        });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.delete.setVisibility(View.GONE);
                 FirebaseDatabase.getInstance().getReference().child("Notes").child(User.getUid()).child(nt.getMesuid()).removeValue();
                 notes.remove(position);
                 notifyDataSetChanged();
-                return true;
             }
         });
     }
@@ -49,5 +64,4 @@ public class NoteAdapter extends RecyclerView.Adapter<ViewHolderNote> {
     public int getItemCount() {
         return notes.size();
     }
-
 }

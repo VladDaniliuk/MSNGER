@@ -7,18 +7,14 @@
     tools:context=".MainActivity"
     android:id = "@+id/drawer">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="msger.com.Messages">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messages_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
         <LinearLayout
+            android:id="@+id/text"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -45,6 +41,15 @@
                 tools:ignore="RtlHardcoded"
                 android:contentDescription="send_message_button" />
         </LinearLayout>
-    </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/messages_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/text"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp" />
+    </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

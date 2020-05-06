@@ -13,7 +13,6 @@
     <include layout="@layout/activity_under_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,17 +26,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@drawable/b_m_account"
-                android:contentDescription="account icon"/>
-
+                android:contentDescription="account icon" />
         </com.google.android.material.navigation.NavigationView>
-
         <com.google.android.material.navigation.NavigationView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,12 +47,11 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="text"
+                android:text="@string/text"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:fontFamily="@font/productsansstyle"/>
         </com.google.android.material.navigation.NavigationView>
-
         <com.google.android.material.navigation.NavigationView
             android:fontFamily="@font/productsansstyle"
             android:layout_width="match_parent"
@@ -73,8 +69,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:fontFamily="@font/productsansstyle"
-                    android:icon="@drawable/notes"
-                    android:text="Notes"
+                    android:text="@string/notes"
                     android:textAllCaps="false" />
                 <Button
                     android:id="@+id/nav_settings"
@@ -82,21 +77,52 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:fontFamily="@font/productsansstyle"
-                    android:icon="@drawable/notes"
-                    android:text="Settings"
+                    android:text="@string/settings"
                     android:textAllCaps="false"
                     android:layout_below="@+id/nav_notes"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/nav_settings">
+                    <Button
+                        android:id="@+id/nav_channels"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:fontFamily="@font/productsansstyle"
+                        android:text="@string/channels"
+                        android:textAllCaps="false"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/channels_recycle"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:visibility="invisible"/>
+                    <Button
+                        android:textAllCaps="false"
+                        android:text="Add/Create channel"
+                        android:id="@+id/add_channel"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:visibility="invisible"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Version: 0.1.4"/>
+                </LinearLayout>
                 <Button
                     android:layout_alignParentBottom = "true"
                     android:layout_gravity="bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/logoff"
-                    android:text="Log off"
+                    android:text="@string/log_off"
                     android:textAllCaps="false"
                     android:background="@color/white"
                     android:fontFamily="@font/productsansstyle"/>
             </RelativeLayout>
         </com.google.android.material.navigation.NavigationView>
     </LinearLayout>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
