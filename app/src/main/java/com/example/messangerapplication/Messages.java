@@ -3,19 +3,26 @@ package com.example.messangerapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Parcelable.Creator;
+import android.text.Layout;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +30,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.messangerapplication.Models.Mess;
 import com.example.messangerapplication.Models.Note;
 import com.example.messangerapplication.Models.User;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -56,6 +65,9 @@ public class Messages extends AppCompatActivity {
     Button Notes;
     Button Settings;
     Button Channels;
+    Button AddChannel;
+    RecyclerView channels;
+    DrawerLayout mDrawerLayout;//боковое меню
 
     ArrayList<Mess> messages = new ArrayList<>();
 
@@ -95,9 +107,11 @@ public class Messages extends AppCompatActivity {
         logOff =findViewById(R.id.logoff);
         Settings = findViewById(R.id.nav_settings);
         Channels = findViewById(R.id.nav_channels);
-
+        channels = findViewById(R.id.channels_recycle);
+        AddChannel = findViewById(R.id.add_channel);
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
+        mDrawerLayout = findViewById(R.id.drawer);//боковое меню
 
         mMessagesRecycler = findViewById(R.id.messages_recycler);
         mMessagesRecycler.setHasFixedSize(true);
@@ -137,21 +151,32 @@ public class Messages extends AppCompatActivity {
         Channels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RecyclerView channels = findViewById(R.id.channels_recycle);
                 if (channels.getVisibility() == View.INVISIBLE) {
                     ViewGroup.LayoutParams params = channels.getLayoutParams();
                     params.height = 300;
                     channels.setLayoutParams(params);
+                    params.height = Settings.getHeight();
                     channels.setVisibility(View.VISIBLE);
-
-
+                    AddChannel.setLayoutParams(params);
+                    AddChannel.setVisibility(View.VISIBLE);
                 }
                 else {
                     ViewGroup.LayoutParams params = channels.getLayoutParams();
                     params.height = 0;
                     channels.setLayoutParams(params);
                     channels.setVisibility(View.INVISIBLE);
+                    AddChannel.setLayoutParams(params);
+                    AddChannel.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+
+        AddChannel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mDrawerLayout.closeDrawers();
+                Intent i = new Intent(getApplicationContext(), AddChannel.class);
+                startActivity(i);
             }
         });
 
@@ -216,8 +241,10 @@ public class Messages extends AppCompatActivity {
             }
         });
 
-        DrawerLayout mDrawerLayout = findViewById(R.id.drawer);//боковое меню
+
+
         mToggle = new ActionBarDrawerToggle(Messages.this, mDrawerLayout,R.string.open,R.string.close);
+
         mDrawerLayout.addDrawerListener(mToggle);
 
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {//открытие бокового меню и скрытие клавиатуры

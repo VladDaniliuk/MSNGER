@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/note_item_with_button"
@@ -8,21 +8,41 @@
     android:clickable="true"
     android:focusable="true"
     android:longClickable="true">
-        <TextView
-            android:id="@+id/note_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/productsans"
-            android:padding="4dp"
-            android:textColor="@color/colorPrimary"
-            android:textIsSelectable="false"
-            android:textSize="28sp" />
+
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/delete"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/poll"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:background="@color/red"
+        android:text="Delete" />
+<LinearLayout
+    android:id="@+id/lL"
+    android:clickable="true"
+    android:layout_below="@+id/poll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/note_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/productsans"
+        android:padding="4dp"
+        android:textColor="@color/colorPrimary"
+        android:textIsSelectable="false"
+        android:textSize="28sp" />
+</LinearLayout>
     <ImageView
+        android:id="@+id/poll"
         android:layout_width="match_parent"
         android:layout_height="3sp"
         android:background="@color/colorPrimary"/>
-</LinearLayout>
+</RelativeLayout>
