@@ -4,24 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".AddChannel">
+    tools:context=".AddChannel"
+    android:id="@+id/root_element">
     <LinearLayout
         android:id="@+id/addd"
         android:gravity="start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <Button
-        android:id="@+id/add"
-        android:text="@string/add"
-        android:clickable="false"
-        android:background="@color/white"
-        android:textAllCaps="false"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"/>
-    <Button
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:clickable="false"
+            android:text="@string/add"
+            android:textAllCaps="false" />
+
+        <Button
         android:background="@color/darkGray"
         android:id="@+id/create"
         android:text="@string/create"
@@ -32,20 +34,50 @@
     </LinearLayout>
 
     <EditText
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:id="@+id/create_addres"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_addres_of_channel" />
+
+    <EditText
+        android:visibility="invisible"
+        android:layout_below="@+id/create_addres"
+        android:id="@+id/create_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Введите название канала" />
+
+    <EditText
+        android:visibility="visible"
+        android:id="@+id/enter_addres"
         android:layout_marginHorizontal="10dp"
         android:layout_centerVertical="true"
         android:hint="@string/enter_addres_of_channel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <ImageButton
+        android:visibility="invisible"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:id="@+id/send_message_b"
+        android:id="@+id/create_addres_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="end"
         android:background="@drawable/add_create_channel_oval"
         android:src="@drawable/add_create_channel"
         tools:ignore="RtlHardcoded"/>
-
+    <ImageButton
+        android:id="@+id/save_addres_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:background="@drawable/add_create_channel_oval"
+        android:src="@drawable/add_save_channel"
+        tools:ignore="RtlHardcoded"/>
 </RelativeLayout>
