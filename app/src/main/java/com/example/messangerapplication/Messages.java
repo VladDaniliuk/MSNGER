@@ -174,6 +174,12 @@ public class Messages extends AppCompatActivity {
         AddChannel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                ViewGroup.LayoutParams params = channels.getLayoutParams();
+                params.height = 0;
+                channels.setLayoutParams(params);
+                channels.setVisibility(View.INVISIBLE);
+                AddChannel.setLayoutParams(params);
+                AddChannel.setVisibility(View.INVISIBLE);
                 mDrawerLayout.closeDrawers();
                 Intent i = new Intent(getApplicationContext(), AddChannel.class);
                 startActivity(i);
@@ -259,6 +265,12 @@ public class Messages extends AppCompatActivity {
                     assert v != null;
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
+                ViewGroup.LayoutParams params = channels.getLayoutParams();
+                params.height = 0;
+                channels.setLayoutParams(params);
+                channels.setVisibility(View.INVISIBLE);
+                AddChannel.setLayoutParams(params);
+                AddChannel.setVisibility(View.INVISIBLE);
             }
 
 
