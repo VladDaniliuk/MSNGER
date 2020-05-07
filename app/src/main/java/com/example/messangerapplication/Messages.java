@@ -84,7 +84,7 @@ public class Messages extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
-        setTitle("Messages");
+        setTitle("General chat");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("User").child(user.getUid()).addListenerForSingleValueEvent(
