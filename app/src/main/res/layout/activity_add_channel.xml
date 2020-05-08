@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".AddChannel"
     android:id="@+id/root_element">
+
     <LinearLayout
         android:id="@+id/addd"
-        android:gravity="start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:orientation="horizontal">
 
         <Button
@@ -24,13 +25,13 @@
             android:textAllCaps="false" />
 
         <Button
-        android:background="@color/darkGray"
-        android:id="@+id/create"
-        android:text="@string/create"
-        android:textAllCaps="false"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+            android:id="@+id/create"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkGray"
+            android:text="@string/create"
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <EditText

@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Parcelable.Creator;
+import android.os.PowerManager.WakeLock;
 import android.text.Layout;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -66,6 +67,7 @@ public class Messages extends AppCompatActivity {
     Button Settings;
     Button Channels;
     Button AddChannel;
+    Button Wallet;
     RecyclerView channels;
     DrawerLayout mDrawerLayout;//боковое меню
 
@@ -103,6 +105,7 @@ public class Messages extends AppCompatActivity {
                     }
                 });
 
+        Wallet = findViewById(R.id.nav_wallet);
         Notes = findViewById(R.id.nav_notes);
         logOff =findViewById(R.id.logoff);
         Settings = findViewById(R.id.nav_settings);
@@ -127,6 +130,14 @@ public class Messages extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Messages.this,SettingsActivity.class));
+                finish();
+            }
+        });
+
+        Wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Messages.this,WalletActivity.class));
                 finish();
             }
         });

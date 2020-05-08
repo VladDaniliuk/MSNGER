@@ -1,7 +1,6 @@
 package com.example.messangerapplication;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -97,17 +96,23 @@ public class AddChannel extends Activity {
                     Snackbar.make(root,"Add address of channel",Snackbar.LENGTH_SHORT).show();
                     return;
                 }
-                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Channels");
+                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                        .child("Channels");
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.child(CreateAddres.getText().toString()).exists()) {
-                            Snackbar.make(root,"Channel with this addres is sushestvuet",Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(root,"Channel with this addres is sushestvuet",
+                                    Snackbar.LENGTH_SHORT).show();
                             return;
                         }
                         else {
-                            FirebaseDatabase.getInstance().getReference().child("MyChannels").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(CreateAddres.getText().toString()).setValue(CreateName.getText().toString());
-                            ref.child(CreateAddres.getText().toString()).setValue(CreateName.getText().toString());
+                            FirebaseDatabase.getInstance().getReference().child("MyChannels")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .child(CreateAddres.getText().toString()).setValue(CreateName
+                                    .getText().toString());
+                            ref.child(CreateAddres.getText().toString()).setValue(CreateName
+                                    .getText().toString());
                             finish();
                         }
                     }
@@ -125,16 +130,21 @@ public class AddChannel extends Activity {
                     Snackbar.make(root,"Add addres of channel",Snackbar.LENGTH_SHORT).show();
                     return;
                 }
-                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Channels");
+                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                        .child("Channels");
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(!dataSnapshot.child(EnterAddres.getText().toString()).exists()) {
-                            Snackbar.make(root,"Channel with this addres is not sushestvuet",Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(root,"Channel with this addres is not sushestvuet"
+                                    ,Snackbar.LENGTH_SHORT).show();
                             return;
                         }
                         else {
-                            FirebaseDatabase.getInstance().getReference().child("MyChannels").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(EnterAddres.getText().toString()).setValue(dataSnapshot.child(EnterAddres.getText().toString()).getValue());
+                            FirebaseDatabase.getInstance().getReference().child("MyChannels")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .child(EnterAddres.getText().toString()).setValue(dataSnapshot
+                                    .child(EnterAddres.getText().toString()).getValue());
                             finish();
                         }
                     }

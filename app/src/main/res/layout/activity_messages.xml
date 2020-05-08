@@ -81,6 +81,7 @@
                     android:textAllCaps="false"
                     android:layout_below="@+id/nav_notes"/>
                 <LinearLayout
+                    android:id="@+id/channels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -105,11 +106,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:visibility="invisible"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Version: 0.1.4"/>
                 </LinearLayout>
+                <Button
+                    android:id="@+id/nav_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:fontFamily="@font/productsansstyle"
+                    android:text="Wallet"
+                    android:textAllCaps="false"
+                    android:layout_below="@+id/channels"/>
+                <TextView
+                    android:layout_below="@+id/nav_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Version: 0.1.4"/>
                 <Button
                     android:layout_alignParentBottom = "true"
                     android:layout_gravity="bottom"
