@@ -43,6 +43,7 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
         Mess msg = messages.get(position);
         holder.message.setText(msg.getMes());
         holder.sender.setText(msg.getUs());

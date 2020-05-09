@@ -37,7 +37,6 @@ public class Notes extends AppCompatActivity {
     RecyclerView mNotesRecycler;
     private static int MAX_NOTE_LENGTH = 1000;
     ArrayList<Note> notes = new ArrayList<>();
-    TextView note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +60,6 @@ public class Notes extends AppCompatActivity {
         final NoteAdapter noteAdapter = new NoteAdapter(Notes.this, notes);
 
         mNotesRecycler.setAdapter(noteAdapter);
-
-        note = findViewById(R.id.note_item);
-
 
         mSendButton.setOnClickListener(new View.OnClickListener() {//отправка сообщения по клику
             @Override
@@ -129,7 +125,6 @@ public class Notes extends AppCompatActivity {
             }
         });
 
-        FirebaseRecyclerAdapter<String, ViewHolderNote> adapter;
         mNotesRecycler.setHasFixedSize(true);
     }
 

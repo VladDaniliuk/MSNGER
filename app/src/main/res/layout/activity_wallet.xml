@@ -46,6 +46,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
         android:id="@+id/receive"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -55,6 +57,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
         android:id="@+id/earn"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -64,6 +68,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
         android:id="@+id/share"
         android:layout_width="50dp"
         android:layout_height="50dp"

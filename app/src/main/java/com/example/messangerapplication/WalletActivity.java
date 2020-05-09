@@ -55,7 +55,8 @@ public class WalletActivity extends AppCompatActivity {
                 TextView textView = findViewById(R.id.money);
                 textView.setText(a);
                 ProgressBar progressBar = findViewById(R.id.progressBar);
-                progressBar.setProgress(75 * money / Integer.parseInt(dataSnapshot.child("all").getValue().toString()));
+                progressBar.setProgress(75 * money / Integer.parseInt(dataSnapshot.child("all")
+                        .getValue().toString()));
             }
 
             @Override
@@ -79,16 +80,16 @@ public class WalletActivity extends AppCompatActivity {
         Receive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Запрашивать валюту у других пользователей можно будет в скором времени",
-                        Toast.LENGTH_SHORT).show();
-                return;
+                Intent i = new Intent(getApplicationContext(), RequestActivity.class);
+                startActivity(i);
             }
         });
 
         Earn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Заработать валюту на просмотре рекламы можно будет в скором времени",
+                Toast.makeText(getApplicationContext(),"Заработать валюту на просмотре " +
+                                "рекламы можно будет в скором времени",
                         Toast.LENGTH_SHORT).show();
                 return;
             }

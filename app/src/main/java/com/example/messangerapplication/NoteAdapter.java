@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 public class NoteAdapter extends RecyclerView.Adapter<ViewHolderNote> {
-
-
     FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
     private ArrayList<Note> notes;
     private LayoutInflater inflater;

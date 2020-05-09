@@ -8,7 +8,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShareActivity"
+        <activity android:name=".SendMoneyActivity" />
+        <activity android:name=".RequestActivity"/>
+        <activity android:name=".RequestChoiceActivity"
+            android:theme="@style/AppTheme.PopMe"/>
+        <activity
+            android:name=".ShareActivity"
             android:theme="@style/AppTheme.PopMe" />
         <activity
             android:name=".AddChannel"
@@ -25,7 +30,8 @@
         <activity android:name=".Notes" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ChangeNameActivity" />
-        <activity android:name=".WalletActivity"/>
+        <activity android:name=".WalletActivity" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2830062687302437~7300093995" />

@@ -54,6 +54,8 @@ import java.util.Objects;
 
 public class Messages extends AppCompatActivity {
 
+    public int l = 10;
+
     private static int MAX_MESSAGE_LENGTH = 1000;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Message");//отвечает за сообщения
 
