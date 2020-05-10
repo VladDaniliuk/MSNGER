@@ -80,7 +80,7 @@ public class WalletActivity extends AppCompatActivity {
         Receive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), RequestActivity.class);
+                Intent i = new Intent(getApplicationContext(), RequestChoiceActivity.class);
                 startActivity(i);
             }
         });

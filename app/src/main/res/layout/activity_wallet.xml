@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
         android:id="@+id/receive"
         android:layout_width="50dp"
@@ -57,8 +57,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
+        android:id="@+id/info"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/info_b_oval"
+        android:src="@drawable/info_b"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:id="@+id/earn"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -69,7 +80,7 @@
 
     <ImageButton
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:id="@+id/share"
         android:layout_width="50dp"
         android:layout_height="50dp"

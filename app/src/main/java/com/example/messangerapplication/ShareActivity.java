@@ -115,4 +115,14 @@ public class ShareActivity extends Activity {
 
     }
 
+    protected void onStop (Bundle savedInstanceState) {
+        super.onStop();
+        finish();
+    }
+
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
 }
