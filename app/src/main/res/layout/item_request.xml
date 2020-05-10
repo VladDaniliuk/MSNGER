@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/request_item"
@@ -9,43 +10,59 @@
     <ImageView
         android:id="@+id/poll"
         android:layout_width="match_parent"
-        android:layout_height="3sp"
+        android:layout_height="3dp"
         android:background="@color/colorPrimary"/>
+    <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
     <TextView
         android:textColor="@color/colorPrimary"
         android:fontFamily="@font/productsans"
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.8"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:textSize="28sp"
         android:padding="4dp"/>
 
-    <TextView
-        android:textColor="@color/colorPrimary"
-        android:fontFamily="@font/productsans"
-        android:id="@+id/money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:padding="4dp"
-        android:textSize="28sp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2">
+
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/productsans"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
     <TextView
         android:fontFamily="@font/productsans"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/info"
         android:id="@+id/mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10dp" />
 
-    <ImageButton
+    <Button
         android:visibility="gone"
-        android:src="@drawable/decline"
+        android:drawableTop ="@drawable/decline"
         android:id="@+id/decline"
         android:layout_below="@+id/poll"
         android:layout_width="50dp"
@@ -54,9 +71,9 @@
         android:layout_marginTop="0dp"
         android:background="@color/red"/>
 
-    <ImageButton
+    <Button
         android:visibility="gone"
-        android:src="@drawable/confirm"
+        android:drawableTop="@drawable/confirm"
         android:id="@+id/confirm"
         android:layout_width="50dp"
         android:layout_height="match_parent"

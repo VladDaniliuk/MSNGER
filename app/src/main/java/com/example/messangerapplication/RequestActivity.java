@@ -71,7 +71,9 @@ public class RequestActivity extends AppCompatActivity {
                     request.setUID(user.getUid());
                     request.setMoney(money);
                     request.setMail(user.getEmail());
-                    db.child("MoneyRequest").child(UID).push().setValue(request);
+                    DatabaseReference myRef = db.child("MoneyRequest").child(UID).push();
+                    request.setReqUid(myRef.getKey());
+                    myRef.setValue(request);
                     Toast.makeText(getApplicationContext(), "Запрос совершен",
                             Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), WalletActivity.class);

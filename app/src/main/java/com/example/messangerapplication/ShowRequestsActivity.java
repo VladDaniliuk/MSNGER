@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -62,10 +63,12 @@ public class ShowRequestsActivity extends AppCompatActivity {
                 String mail = dataSnapshot.child("mail").getValue().toString();
                 String money = dataSnapshot.child("money").getValue().toString();
                 String UID = dataSnapshot.child("uid").getValue().toString();
+                String reqUID = dataSnapshot.child("reqUid").getValue().toString();
                 Request request = new Request();
                 request.setMail(mail);
                 request.setMoney(money);
                 request.setUID(UID);
+                request.setReqUid(reqUID);
                 requests.add(request);
                 myRequestsAdapter.notifyDataSetChanged();
                 mRequestRecycler.smoothScrollToPosition(requests.size());
@@ -117,5 +120,10 @@ public class ShowRequestsActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
         back_pressed = System.currentTimeMillis();
+    }
+
+    protected void onStop (Bundle savedInstanceState) {
+        super.onStop();
+        finish();
     }
 }

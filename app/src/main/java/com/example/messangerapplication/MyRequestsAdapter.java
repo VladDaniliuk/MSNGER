@@ -1,11 +1,15 @@
 package com.example.messangerapplication;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.messangerapplication.Models.Request;
@@ -16,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -60,6 +65,41 @@ public class MyRequestsAdapter extends RecyclerView.Adapter<ViewHolderRequest> {
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.del.getVisibility() == View.GONE) {
+                    holder.del.setVisibility(View.VISIBLE);
+                    holder.conf.setVisibility(View.VISIBLE);
+                    int calc = (int) holder.button.getHeight() - 3;
+                    holder.conf.setHeight(calc);
+                    holder.del.setHeight(calc);
+                } else {
+                    holder.conf.setVisibility(View.GONE);
+                    holder.del.setVisibility(View.GONE);
+                }
+            }
+        });
+        holder.del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.conf.setVisibility(View.GONE);
+                holder.del.setVisibility(View.GONE);
+                db.child("MoneyRequest").child(U.getUid()).child(request.getReqUid()).removeValue();
+                requests.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+        holder.conf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.conf.setVisibility(View.GONE);
+                holder.del.setVisibility(View.GONE);
+                Intent intent = new Intent(holder.conf.getContext(), ConfirmRequestActivity.class);
+                intent.putExtra("UID",request.getReqUid().toString());
+                holder.conf.getContext().startActivity(intent);
+            }
         });
     }
 

@@ -2,10 +2,12 @@ package com.example.messangerapplication;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,16 +16,20 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable.Creator;
 import android.os.PowerManager.WakeLock;
 import android.text.Layout;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +45,7 @@ import com.example.messangerapplication.Models.Mess;
 import com.example.messangerapplication.Models.Note;
 import com.example.messangerapplication.Models.User;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -50,6 +57,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class Messages extends AppCompatActivity {
@@ -72,9 +80,11 @@ public class Messages extends AppCompatActivity {
     Button Wallet;
     RecyclerView channels;
     DrawerLayout mDrawerLayout;//боковое меню
+    DrawerLayout drawerLayout;
 
     ArrayList<Mess> messages = new ArrayList<>();
 
+    private ActionBarDrawerToggle toggle;
     private ActionBarDrawerToggle mToggle;
 
     public String name;
@@ -117,6 +127,7 @@ public class Messages extends AppCompatActivity {
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
         mDrawerLayout = findViewById(R.id.drawer);//боковое меню
+        drawerLayout = findViewById(R.id.drawer2);
 
         mMessagesRecycler = findViewById(R.id.messages_recycler);
         mMessagesRecycler.setHasFixedSize(true);
@@ -270,6 +281,7 @@ public class Messages extends AppCompatActivity {
 
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                drawerLayout.closeDrawers();
                 InputMethodManager imm = (InputMethodManager) Messages.this.getSystemService(Context
                         .INPUT_METHOD_SERVICE);
                 assert imm != null;
@@ -278,6 +290,7 @@ public class Messages extends AppCompatActivity {
                     assert v != null;
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
+
                 ViewGroup.LayoutParams params = channels.getLayoutParams();
                 params.height = 0;
                 channels.setLayoutParams(params);
@@ -286,6 +299,39 @@ public class Messages extends AppCompatActivity {
                 AddChannel.setVisibility(View.INVISIBLE);
             }
 
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                //drawerLayout.closeDrawers();
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
+        toggle = new ActionBarDrawerToggle(Messages.this, drawerLayout,R.string.open,R.string.close);
+
+        drawerLayout.addDrawerListener(toggle);
+
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                InputMethodManager imm = (InputMethodManager) Messages.this.getSystemService(Context
+                        .INPUT_METHOD_SERVICE);
+                assert imm != null;
+                if (imm.isAcceptingText()){
+                    View v = getCurrentFocus();
+                    assert v != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
@@ -303,6 +349,9 @@ public class Messages extends AppCompatActivity {
             }
         });
 
+
+
+        toggle.syncState();
         mToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
@@ -322,7 +371,6 @@ public class Messages extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {//боковое менб открытие кнопкой
-
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context
                 .INPUT_METHOD_SERVICE);
         assert imm != null;
@@ -332,8 +380,23 @@ public class Messages extends AppCompatActivity {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
         if(mToggle.onOptionsItemSelected(item)) {
+            drawerLayout.closeDrawers();//
             return true;
         }
+        if(item.getItemId() == R.id.users) {
+            if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                drawerLayout.closeDrawers();
+            } else {
+                mDrawerLayout.closeDrawers();
+                drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.users, menu);
+        return true;
     }
 }

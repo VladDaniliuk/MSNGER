@@ -1,14 +1,15 @@
 package com.example.messangerapplication.Models;
 
 public class Request {
-    String mail,money,UID;
+    String mail,money,UID, reqUid;
 
     public Request () {}
 
-    public Request(String mail, String money, String UID) {
+    public Request(String mail, String money, String UID, String reqUid) {
         this.mail = mail;
         this.money = money;
         this.UID = UID;
+        this.reqUid = reqUid;
     }
 
     public String getMail() {
@@ -33,5 +34,13 @@ public class Request {
 
     public void setUID(String UID) {
         this.UID = UID;
+    }
+
+    public String getReqUid() {
+        return reqUid;
+    }
+
+    public void setReqUid(String reqUid) {
+        this.reqUid = reqUid;
     }
 }

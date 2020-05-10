@@ -134,12 +134,12 @@ public class WalletActivity extends AppCompatActivity {
             });
             // кнопка отрицательного ответа
             adb.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                               public void onClick(DialogInterface dialog, int id) {
-                                   startActivity(new Intent(WalletActivity.this,
-                                           Messages.class));
-                                   finish();
-                               }
-                           });
+                public void onClick(DialogInterface dialog, int id) {
+                    startActivity(new Intent(WalletActivity.this,
+                            Messages.class));
+                    finish();
+                }
+            });
             // создаем диалог
             return adb.create();
         }
