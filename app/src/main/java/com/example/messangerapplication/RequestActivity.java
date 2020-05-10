@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.messangerapplication.Models.Request;
 import com.example.messangerapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 public class RequestActivity extends AppCompatActivity {
 
@@ -64,9 +66,12 @@ public class RequestActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    int Money = Integer.parseInt(money);
                     moneyRequest.setText("");
-                    db.child("MoneyRequest").child(UID).push().child(user.getUid()).setValue(Money);
+                    Request request = new Request();
+                    request.setUID(user.getUid());
+                    request.setMoney(money);
+                    request.setMail(user.getEmail());
+                    db.child("MoneyRequest").child(UID).push().setValue(request);
                     Toast.makeText(getApplicationContext(), "Запрос совершен",
                             Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), WalletActivity.class);

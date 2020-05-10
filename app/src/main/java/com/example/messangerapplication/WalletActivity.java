@@ -68,6 +68,16 @@ public class WalletActivity extends AppCompatActivity {
         ImageButton Share = findViewById(R.id.share);
         ImageButton Receive = findViewById(R.id.receive);
         ImageButton Earn = findViewById(R.id.earn);
+        ImageButton Info = findViewById(R.id.info);
+
+        Info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), ShowRequestsActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         Share.setOnClickListener(new View.OnClickListener() {
             @Override

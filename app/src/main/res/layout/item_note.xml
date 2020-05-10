@@ -40,9 +40,5 @@
         android:textIsSelectable="false"
         android:textSize="28sp" />
 </LinearLayout>
-    <ImageView
-        android:id="@+id/poll"
-        android:layout_width="match_parent"
-        android:layout_height="3sp"
-        android:background="@color/colorPrimary"/>
+
 </RelativeLayout>
