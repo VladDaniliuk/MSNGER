@@ -37,6 +37,7 @@
             android:noHistory="true" />
         <activity android:name=".ShowRequestsActivity"
             android:noHistory="true"/>
+        <activity android:name=".UsersActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

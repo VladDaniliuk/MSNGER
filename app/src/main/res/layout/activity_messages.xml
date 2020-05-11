@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include layout="@layout/activity_mid_messages"
+    <include layout="@layout/activity_under_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <LinearLayout
@@ -120,7 +120,7 @@
                     android:layout_below="@+id/nav_wallet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Version: 0.1.5"/>
+                    android:text="Version: 0.1.6"/>
                 <Button
                     android:layout_alignParentBottom = "true"
                     android:layout_gravity="bottom"
