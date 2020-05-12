@@ -49,14 +49,16 @@ public class WalletActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.child(user.getUid()).exists()) {
                     showDialog(1);
+                } else {
+                    String a = dataSnapshot.child(user.getUid()).getValue().toString();
+                    int money = Integer.parseInt(a);
+                    TextView textView = findViewById(R.id.money);
+                    textView.setText(a);
+                    ProgressBar progressBar = findViewById(R.id.progressBar);
+                    progressBar.setProgress(75 * money / Integer.parseInt(dataSnapshot.child("all")
+                            .getValue().toString()));
+
                 }
-                String a = dataSnapshot.child(user.getUid()).getValue().toString();
-                int money = Integer.parseInt(a);
-                TextView textView = findViewById(R.id.money);
-                textView.setText(a);
-                ProgressBar progressBar = findViewById(R.id.progressBar);
-                progressBar.setProgress(75 * money / Integer.parseInt(dataSnapshot.child("all")
-                        .getValue().toString()));
             }
 
             @Override
@@ -124,6 +126,9 @@ public class WalletActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             int a = dataSnapshot.child("all").getValue(Integer.class);
                             db.child("all").setValue(a + 100);
+                            startActivity(new Intent(WalletActivity.this,
+                                    WalletActivity.class));
+                            finish();
                         }
 
                         @Override
