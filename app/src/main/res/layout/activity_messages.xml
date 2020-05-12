@@ -80,42 +80,28 @@
                     android:text="@string/settings"
                     android:textAllCaps="false"
                     android:layout_below="@+id/nav_notes"/>
-                <LinearLayout
-                    android:id="@+id/channels"
+
+                <Button
+                    android:id="@+id/nav_channels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@+id/nav_settings">
-                    <Button
-                        android:id="@+id/nav_channels"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:fontFamily="@font/productsansstyle"
-                        android:text="@string/channels"
-                        android:textAllCaps="false"/>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/channels_recycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:visibility="invisible"/>
-                    <Button
-                        android:textAllCaps="false"
-                        android:text="Add/Create channel"
-                        android:id="@+id/add_channel"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:visibility="invisible"/>
-                </LinearLayout>
+                    android:layout_below="@+id/nav_settings"
+                    android:layout_marginTop="0dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/productsansstyle"
+                    android:text="@string/channels"
+                    android:textAllCaps="false" />
+
                 <Button
                     android:id="@+id/nav_wallet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/nav_channels"
+                    android:layout_marginTop="0dp"
                     android:background="@color/white"
                     android:fontFamily="@font/productsansstyle"
                     android:text="Wallet"
-                    android:textAllCaps="false"
-                    android:layout_below="@+id/channels"/>
+                    android:textAllCaps="false" />
                 <TextView
                     android:layout_below="@+id/nav_wallet"
                     android:layout_width="wrap_content"

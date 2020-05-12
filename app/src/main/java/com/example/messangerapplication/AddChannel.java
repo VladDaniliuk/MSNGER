@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
+import com.example.messangerapplication.Models.Channel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -107,12 +108,13 @@ public class AddChannel extends Activity {
                             return;
                         }
                         else {
+                            Channel channel = new Channel();
+                            channel.setID(CreateAddres.getText().toString());
+                            channel.setName(CreateName.getText().toString());
                             FirebaseDatabase.getInstance().getReference().child("MyChannels")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .child(CreateAddres.getText().toString()).setValue(CreateName
-                                    .getText().toString());
-                            ref.child(CreateAddres.getText().toString()).setValue(CreateName
-                                    .getText().toString());
+                                    .child(CreateAddres.getText().toString()).setValue(channel);
+                            ref.child(CreateAddres.getText().toString()).setValue(channel);
                             finish();
                         }
                     }

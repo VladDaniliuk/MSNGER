@@ -57,9 +57,7 @@ public class Messages extends AppCompatActivity {
     Button Notes;
     Button Settings;
     Button Channels;
-    Button AddChannel;
     Button Wallet;
-    RecyclerView mChannelsRecycler;
     DrawerLayout mDrawerLayout;//боковое меню
 
     ArrayList<Channel> channels = new ArrayList<>();
@@ -99,13 +97,10 @@ public class Messages extends AppCompatActivity {
         logOff =findViewById(R.id.logoff);
         Settings = findViewById(R.id.nav_settings);
         Channels = findViewById(R.id.nav_channels);
-        AddChannel = findViewById(R.id.add_channel);
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
         mDrawerLayout = findViewById(R.id.drawer);//боковое меню
 
-        mChannelsRecycler = findViewById(R.id.channels_recycle);
-        mChannelsRecycler.setHasFixedSize(true);
 
         mMessagesRecycler = findViewById(R.id.messages_recycler);
         mMessagesRecycler.setHasFixedSize(true);
@@ -155,38 +150,9 @@ public class Messages extends AppCompatActivity {
         Channels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (AddChannel.getVisibility() == View.INVISIBLE) {
-                    ViewGroup.LayoutParams params = AddChannel.getLayoutParams();
-                    params.height = 700;
-                    mChannelsRecycler.setLayoutParams(params);
-                    params.height = Settings.getHeight();
-                    mChannelsRecycler.setVisibility(View.VISIBLE);
-                    AddChannel.setLayoutParams(params);
-                    AddChannel.setVisibility(View.VISIBLE);
-                }
-                else {
-                    ViewGroup.LayoutParams params = AddChannel.getLayoutParams();
-                    params.height = 0;
-                    mChannelsRecycler.setLayoutParams(params);
-                    mChannelsRecycler.setVisibility(View.INVISIBLE);
-                    AddChannel.setLayoutParams(params);
-                    AddChannel.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        AddChannel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                ViewGroup.LayoutParams params = AddChannel.getLayoutParams();
-                params.height = 0;
-                mChannelsRecycler.setLayoutParams(params);
-                mChannelsRecycler.setVisibility(View.INVISIBLE);
-                AddChannel.setLayoutParams(params);
-                AddChannel.setVisibility(View.INVISIBLE);
-                mDrawerLayout.closeDrawers();
-                Intent i = new Intent(getApplicationContext(), AddChannel.class);
+                Intent i = new Intent(getApplicationContext(), ChannelActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -259,12 +225,6 @@ public class Messages extends AppCompatActivity {
                     assert v != null;
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
-                ViewGroup.LayoutParams params = AddChannel.getLayoutParams();
-                params.height = 0;
-                mChannelsRecycler.setLayoutParams(params);
-                mChannelsRecycler.setVisibility(View.INVISIBLE);
-                AddChannel.setLayoutParams(params);
-                AddChannel.setVisibility(View.INVISIBLE);
             }
 
             @Override
