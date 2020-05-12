@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 
 import com.example.messangerapplication.Models.Channel;
+import com.example.messangerapplication.Models.User;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -115,6 +116,10 @@ public class AddChannel extends Activity {
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .child(CreateAddres.getText().toString()).setValue(channel);
                             ref.child(CreateAddres.getText().toString()).setValue(channel);
+                            FirebaseDatabase.getInstance().getReference().child("ChannelUsers").
+                                    child(CreateAddres.getText().toString()).
+                                    child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                                    setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             finish();
                         }
                     }
@@ -147,6 +152,10 @@ public class AddChannel extends Activity {
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .child(EnterAddres.getText().toString()).setValue(dataSnapshot
                                     .child(EnterAddres.getText().toString()).getValue());
+                            FirebaseDatabase.getInstance().getReference().child("ChannelUsers").
+                                    child(EnterAddres.getText().toString()).
+                                    child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                                    setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             finish();
                         }
                     }

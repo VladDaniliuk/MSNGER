@@ -48,6 +48,8 @@ public class ChannelMeccagesActivity extends AppCompatActivity {
 
     public String name;
 
+    String UID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,7 @@ public class ChannelMeccagesActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Bundle arguments = getIntent().getExtras();
-        String UID = arguments.get("UID").toString();
+        UID = arguments.get("UID").toString();
         myRef.child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -160,6 +162,11 @@ public class ChannelMeccagesActivity extends AppCompatActivity {
                 startActivity(new Intent(ChannelMeccagesActivity.this, ChannelActivity.class));
                 finish();
                 return true;
+            /*case R.id.users:
+                Intent intent = new Intent(ChannelMeccagesActivity.this, ChannelMeccagesUsersActivity.class);
+                intent.putExtra("UID",UID);
+                startActivity(intent);
+                finish();*/
             default:
                 return super.onOptionsItemSelected(item);
         }

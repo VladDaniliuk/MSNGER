@@ -270,6 +270,7 @@ public class Messages extends AppCompatActivity {
         if (item.getItemId() == R.id.users) {
             Intent i = new Intent(getApplicationContext(), UsersActivity.class);
             startActivity(i);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
