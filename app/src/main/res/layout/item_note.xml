@@ -41,4 +41,10 @@
         android:textSize="28sp" />
 </LinearLayout>
 
+    <ImageView
+        android:background="@color/colorPrimary"
+        android:id="@+id/poll"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+
 </RelativeLayout>

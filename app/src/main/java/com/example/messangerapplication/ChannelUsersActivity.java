@@ -43,6 +43,15 @@ public class ChannelUsersActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         UID = arguments.get("UID").toString();
 
+        myRef.child("Channels").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                setTitle(dataSnapshot.child("name").getValue(String.class));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
         RecyclerView recyclerView = findViewById(R.id.channel_users_recycle);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
