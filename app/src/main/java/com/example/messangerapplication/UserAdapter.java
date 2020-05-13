@@ -20,6 +20,11 @@ public class UserAdapter extends RecyclerView.Adapter<ViewHolderUser> {
         this.inflater = LayoutInflater.from(context);
     }
 
+    UserAdapter(ChannelUsersActivity context, ArrayList<User> users) {
+        this.users = users;
+        this.inflater = LayoutInflater.from(context);
+    }
+
     @NonNull
     @Override
     public ViewHolderUser onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

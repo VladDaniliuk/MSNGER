@@ -162,11 +162,11 @@ public class ChannelMeccagesActivity extends AppCompatActivity {
                 startActivity(new Intent(ChannelMeccagesActivity.this, ChannelActivity.class));
                 finish();
                 return true;
-            /*case R.id.users:
-                Intent intent = new Intent(ChannelMeccagesActivity.this, ChannelMeccagesUsersActivity.class);
+            case R.id.users:
+                Intent intent = new Intent(ChannelMeccagesActivity.this, ChannelUsersActivity.class);
                 intent.putExtra("UID",UID);
                 startActivity(intent);
-                finish();*/
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }

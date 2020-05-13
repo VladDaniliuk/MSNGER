@@ -163,6 +163,7 @@ public class LogRegActivity extends AppCompatActivity {
                     Snackbar.make(root,"Add pass, 8 symbols and more",Snackbar.LENGTH_SHORT).show();
                     return;
                 }
+
                 auth.createUserWithEmailAndPassword(email.getText().toString(),pass.getText().toString())
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override

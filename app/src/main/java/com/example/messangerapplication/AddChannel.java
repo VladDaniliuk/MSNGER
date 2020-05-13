@@ -2,6 +2,7 @@ package com.example.messangerapplication;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.hardware.usb.UsbDevice;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 
 import com.example.messangerapplication.Models.Channel;
+import com.example.messangerapplication.Models.ChannelUser;
 import com.example.messangerapplication.Models.User;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.time.temporal.ChronoUnit;
+import java.util.Map;
 
 public class AddChannel extends Activity {
 
