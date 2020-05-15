@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.messangerapplication.Models.ChannelUser;
 import com.example.messangerapplication.Models.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -58,7 +59,7 @@ public class ChannelUsersActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        final UserAdapter userAdapter = new UserAdapter(ChannelUsersActivity.this, users);
+        final ChannelUserAdapter userAdapter = new ChannelUserAdapter(ChannelUsersActivity.this, users);
 
         recyclerView.setAdapter(userAdapter);
 
@@ -70,7 +71,10 @@ public class ChannelUsersActivity extends AppCompatActivity {
                         new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        User contact = dataSnapshot.getValue(User.class);
+                        User contact = new User();
+                        contact.setName(dataSnapshot.child("name").getValue(String.class));
+                        contact.setUID(ChId);
+                        contact.setEmail(dataSnapshot.child("email").getValue(String.class));
                         users.add(contact);
                         userAdapter.notifyDataSetChanged();
                         recyclerView.smoothScrollToPosition(users.size());

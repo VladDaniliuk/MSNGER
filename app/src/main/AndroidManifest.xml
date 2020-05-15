@@ -8,7 +8,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChannelUsersActivity"></activity>
+        <activity android:name=".UserMessagesActivity"
+            android:noHistory="true"/>
+        <activity android:name=".ChannelUsersActivity"
+            android:noHistory="true"/>
         <activity android:name=".ChannelMeccagesActivity" />
         <activity
             android:name=".ChannelActivity"

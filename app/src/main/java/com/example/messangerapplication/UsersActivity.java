@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.messangerapplication.Models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,8 +56,10 @@ public class UsersActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String name = dataSnapshot.child("name").getValue(String.class);
                 String mail = dataSnapshot.child("email").getValue(String.class);
+                String uid = dataSnapshot.child("uid").getValue(String.class);
                 User user = new User();
                 user.setName(name);
+                user.setUID(uid);
                 user.setEmail(mail);
                 users.add(user);
                 userAdapter.notifyDataSetChanged();

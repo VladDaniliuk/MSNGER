@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,9 @@ public class ChannelActivity extends AppCompatActivity {
                 startActivity(new Intent(ChannelActivity.this, Messages.class));
                 finish();
                 return true;
+            case R.id.p_mess:
+                Toast.makeText(getBaseContext(), "Cкоро будет готово!",
+                        Toast.LENGTH_SHORT).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -121,5 +125,12 @@ public class ChannelActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
         back_pressed = System.currentTimeMillis();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.personal_messages, menu);
+        return true;
     }
 }

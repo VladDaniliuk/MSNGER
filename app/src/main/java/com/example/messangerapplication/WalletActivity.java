@@ -19,7 +19,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.messangerapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +31,6 @@ public class WalletActivity extends AppCompatActivity {
 
     DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("Wallet");
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
 
 
     @Override

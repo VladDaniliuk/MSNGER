@@ -176,6 +176,9 @@ public class LogRegActivity extends AppCompatActivity {
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                                 String UId=auth.getCurrentUser().getUid();
+
+                                user.setUID(UId);
+
                                 ref.child("User").child(UId).setValue(user);
                             }
                         }).addOnFailureListener(new OnFailureListener() {

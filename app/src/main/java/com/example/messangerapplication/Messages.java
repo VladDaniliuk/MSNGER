@@ -41,7 +41,6 @@ import java.util.Objects;
 
 public class Messages extends AppCompatActivity {
 
-    public int l = 10;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private static int MAX_MESSAGE_LENGTH = 1000;
