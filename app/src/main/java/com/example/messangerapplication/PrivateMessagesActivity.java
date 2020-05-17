@@ -7,21 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.messangerapplication.Models.Channel;
-import com.example.messangerapplication.Models.Note;
+import com.example.messangerapplication.Models.PrivMess;
+import com.example.messangerapplication.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -29,86 +25,65 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ChannelActivity extends AppCompatActivity {
+public class PrivateMessagesActivity extends AppCompatActivity {
 
-    RecyclerView mChannelRecycler;
+    RecyclerView mPrivateMessagesRecycler;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("MyChannels").child(user.getUid());
-    ArrayList<Channel> channels = new ArrayList<>();
-    ImageButton addChannel;
+    ArrayList<PrivMess> privMessArrayList = new ArrayList<>();
+    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_channel);
-        setTitle("Channels");
+        setContentView(R.layout.activity_private_messages);
+        setTitle("Private Messages");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        addChannel = findViewById(R.id.add_channel);
+        mPrivateMessagesRecycler = findViewById(R.id.private_messages_recycler);
+        mPrivateMessagesRecycler.setHasFixedSize(true);
 
-        mChannelRecycler = findViewById(R.id.channels_recycle);
-        mChannelRecycler.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
 
-        mChannelRecycler.setLayoutManager(linearLayoutManager);
+        mPrivateMessagesRecycler.setLayoutManager(linearLayoutManager);
 
-        final ChannelAdapter channelAdapter = new ChannelAdapter(ChannelActivity.this,channels);
+        final PrivateMessageAdapter privateMessageAdapter = new PrivateMessageAdapter(PrivateMessagesActivity.this,privMessArrayList);
 
-        mChannelRecycler.setAdapter(channelAdapter);
+        mPrivateMessagesRecycler.setAdapter(privateMessageAdapter);
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.child("UserMessageList").child(user.getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String addres = dataSnapshot.child("id").getValue(String.class);
-                String name = dataSnapshot.child("name").getValue(String.class);
-                Channel channel = new Channel();
-                channel.setName(name);
-                channel.setID(addres);
-                channels.add(channel);
-                channelAdapter.notifyDataSetChanged();
-                mChannelRecycler.smoothScrollToPosition(channels.size());
+                PrivMess privMess = new PrivMess();
+                privMessArrayList.add(privMess);
+                privateMessageAdapter.notifyDataSetChanged();
+                mPrivateMessagesRecycler.smoothScrollToPosition(privMessArrayList.size());
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
-
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
-
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
-        mChannelRecycler.setHasFixedSize(true);
-
-        addChannel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), AddChannel.class);
-                startActivity(i);
-            }
-        });
+        mPrivateMessagesRecycler.setHasFixedSize(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(ChannelActivity.this, Messages.class));
-                finish();
-                return true;
-            case R.id.p_mess:
-                startActivity(new Intent(ChannelActivity.this, PrivateMessagesActivity.class));
+                startActivity(new Intent(PrivateMessagesActivity.this, ChannelActivity.class));
                 finish();
                 return true;
             default:
@@ -126,12 +101,5 @@ public class ChannelActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
         back_pressed = System.currentTimeMillis();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.personal_messages, menu);
-        return true;
     }
 }
