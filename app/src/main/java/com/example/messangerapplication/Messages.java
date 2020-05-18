@@ -36,7 +36,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class Messages extends AppCompatActivity {
@@ -170,6 +174,7 @@ public class Messages extends AppCompatActivity {
                     return;
                 }
                 Mess mess = new Mess();
+                mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
                 mess.setUs(name);
                 mess.setMes(msg);
                 mess.setUid(user.getUid());
@@ -187,7 +192,9 @@ public class Messages extends AppCompatActivity {
                 String msg = dataSnapshot.child("mes").getValue(String.class);
                 String usr = dataSnapshot.child("us").getValue(String.class);
                 String uid = dataSnapshot.child("uid").getValue(String.class);
+                String time = dataSnapshot.child("time").getValue(String.class);
                 Mess mess = new Mess();
+                mess.setTime(time);
                 mess.setMes(msg);
                 mess.setUs(usr);
                 mess.setUid(uid);

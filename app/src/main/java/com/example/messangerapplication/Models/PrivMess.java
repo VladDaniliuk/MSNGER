@@ -1,16 +1,13 @@
 package com.example.messangerapplication.Models;
 
 public class PrivMess {
-    String NicknameLetter, NickName, Message;
-    Boolean You;
+    private String NicknameLetter, NickName, ID, UID;
 
     public PrivMess () {}
 
-    public PrivMess (String NicknameLetter, String NickName, String Message, Boolean You) {
-        this.Message = Message;
+    public PrivMess (String NicknameLetter, String NickName) {
         this.NickName = NickName;
         this.NicknameLetter = NicknameLetter;
-        this.You = You;
     }
 
     public String getNicknameLetter() {
@@ -29,19 +26,19 @@ public class PrivMess {
         NickName = nickName;
     }
 
-    public String getMessage() {
-        return Message;
+    public String getID() {
+        return ID;
     }
 
-    public void setMessage(String message) {
-        Message = message;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public Boolean getYou() {
-        return You;
+    public String getUID() {
+        return UID;
     }
 
-    public void setYou(Boolean you) {
-        You = you;
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 }

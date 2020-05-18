@@ -8,7 +8,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PrivateMessagesActivity"></activity>
+        <activity
+            android:name=".PrivateMessagesActivity"
+            android:noHistory="true" />
         <activity
             android:name=".UserMessagesActivity"
             android:noHistory="true" />

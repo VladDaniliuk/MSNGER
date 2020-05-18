@@ -28,7 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UserMessagesActivity extends AppCompatActivity {
 
@@ -116,6 +118,7 @@ public class UserMessagesActivity extends AppCompatActivity {
                 mess.setUs(name);
                 mess.setMes(msg);
                 mess.setUid(user.getUid());
+                mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
                 DatabaseReference mR =  myRef.child(ID).push();
                 String uid = mR.getKey();
                 mess.setMesuid(uid);
@@ -130,8 +133,10 @@ public class UserMessagesActivity extends AppCompatActivity {
                 String msg = dataSnapshot.child("mes").getValue(String.class);
                 String usr = dataSnapshot.child("us").getValue(String.class);
                 String uid = dataSnapshot.child("uid").getValue(String.class);
+                String time = dataSnapshot.child("time").getValue(String.class);
                 Mess mess = new Mess();
                 mess.setMes(msg);
+                mess.setTime(time);
                 mess.setUs(usr);
                 mess.setUid(uid);
                 messages.add(mess);

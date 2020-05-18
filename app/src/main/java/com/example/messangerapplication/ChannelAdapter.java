@@ -35,13 +35,10 @@ public class ChannelAdapter extends RecyclerView.Adapter<ViewHolderChannel> {
         String a = "@" + ch.getID();
         holder.addres.setText(a);
         holder.name.setText(ch.getName());
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(holder.button.getContext(), ChannelMeccagesActivity.class);
-                intent.putExtra("UID",ch.getID());
-                holder.button.getContext().startActivity(intent);
-            }
+        holder.button.setOnClickListener(view -> {
+            Intent intent = new Intent(holder.button.getContext(), ChannelMeccagesActivity.class);
+            intent.putExtra("UID",ch.getID());
+            holder.button.getContext().startActivity(intent);
         });
     }
 

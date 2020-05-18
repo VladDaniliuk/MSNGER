@@ -54,17 +54,33 @@ public class PrivateMessagesActivity extends AppCompatActivity {
 
         mPrivateMessagesRecycler.setLayoutManager(linearLayoutManager);
 
-        final PrivateMessageAdapter privateMessageAdapter = new PrivateMessageAdapter(PrivateMessagesActivity.this,privMessArrayList);
+        final PrivateMessageAdapter privateMessageAdapter = new PrivateMessageAdapter(
+                PrivateMessagesActivity.this,privMessArrayList);
 
         mPrivateMessagesRecycler.setAdapter(privateMessageAdapter);
 
-        myRef.child("UserMessageList").child(user.getUid()).addChildEventListener(new ChildEventListener() {
+        myRef.child("UserMessageList").child(user.getUid()).addChildEventListener(
+                new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 PrivMess privMess = new PrivMess();
-                privMessArrayList.add(privMess);
-                privateMessageAdapter.notifyDataSetChanged();
-                mPrivateMessagesRecycler.smoothScrollToPosition(privMessArrayList.size());
+                privMess.setID(dataSnapshot.getValue().toString());
+                privMess.setUID(dataSnapshot.getKey());
+
+                String ChId = dataSnapshot.getKey();
+                myRef.child("User").child(ChId).addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        privMess.setNickName(dataSnapshot.child("name").getValue(String.class));
+                        privMess.setNicknameLetter(privMess.getNickName().substring(0,1));
+                        privMessArrayList.add(privMess);
+                        privateMessageAdapter.notifyDataSetChanged();
+                        mPrivateMessagesRecycler.smoothScrollToPosition(privMessArrayList.size());
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {}
+                        });
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
@@ -83,7 +99,8 @@ public class PrivateMessagesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(new Intent(PrivateMessagesActivity.this, ChannelActivity.class));
+                startActivity(new Intent(PrivateMessagesActivity.this, ChannelActivity.
+                        class));
                 finish();
                 return true;
             default:

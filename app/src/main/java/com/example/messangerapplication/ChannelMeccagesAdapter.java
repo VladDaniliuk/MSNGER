@@ -45,6 +45,7 @@ public class ChannelMeccagesAdapter extends RecyclerView.Adapter<ViewHolder> {
         Mess msg = messages.get(position);
         holder.message.setText(msg.getMes());
         holder.sender.setText(msg.getUs());
+        holder.time.setText(msg.getTime());
     }
 
     @Override

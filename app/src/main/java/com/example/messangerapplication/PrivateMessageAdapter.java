@@ -1,6 +1,6 @@
 package com.example.messangerapplication;
 
-import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +32,14 @@ public class PrivateMessageAdapter extends RecyclerView.Adapter<ViewHolderPrivMe
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPrivMess holder, int position) {
         final PrivMess pm = privMesses.get(position);
-        holder.message.setText(pm.getMessage());
         holder.nickname.setText(pm.getNickName());
         holder.letter.setText(pm.getNicknameLetter());
+        holder.button.setOnClickListener(view -> {
+            Intent i = new Intent(holder.button.getContext(), UserMessagesActivity.class);
+            i.putExtra("ID", pm.getID());
+            i.putExtra("UID",pm.getUID());
+            holder.button.getContext().startActivity(i);
+        });
     }
 
     @Override

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/button"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -27,33 +28,18 @@
 
     <TextView
         android:id="@+id/nickname"
-        android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:text="NickName"
-        android:textSize="40dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/you"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:text="You: "
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/nickname" />
-
-    <TextView
-        android:text="Message"
-        android:id="@+id/text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/you"
-        app:layout_constraintTop_toBottomOf="@+id/nickname" />
     <ImageView
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="3dp"/>
+        android:layout_height="3dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

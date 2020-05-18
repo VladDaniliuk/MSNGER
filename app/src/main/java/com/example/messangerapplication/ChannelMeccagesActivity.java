@@ -30,7 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChannelMeccagesActivity extends AppCompatActivity {
 
@@ -118,6 +120,7 @@ public class ChannelMeccagesActivity extends AppCompatActivity {
                 mess.setUs(name);
                 mess.setMes(msg);
                 mess.setUid(user.getUid());
+                mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
                 DatabaseReference mR =  myRefMessages.child(UID).push();
                 String uid = mR.getKey();
                 mess.setMesuid(uid);
@@ -132,7 +135,9 @@ public class ChannelMeccagesActivity extends AppCompatActivity {
                 String msg = dataSnapshot.child("mes").getValue(String.class);
                 String usr = dataSnapshot.child("us").getValue(String.class);
                 String uid = dataSnapshot.child("uid").getValue(String.class);
+                String time = dataSnapshot.child("time").getValue(String.class);
                 Mess mess = new Mess();
+                mess.setTime(time);
                 mess.setMes(msg);
                 mess.setUs(usr);
                 mess.setUid(uid);
