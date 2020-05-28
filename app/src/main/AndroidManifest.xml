@@ -8,24 +8,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MyUserPageActivity"
+            android:theme="@style/AppTheme.without_action_bar" />
         <activity
+            android:name=".UserPageActivity"
+            android:theme="@style/AppTheme.without_action_bar" />
+        <activity
+            android:theme="@style/AppTheme.daynight"
             android:name=".PrivateMessagesActivity"
             android:noHistory="true" />
         <activity
+            android:theme="@style/AppTheme.daynight"
             android:name=".UserMessagesActivity"
             android:noHistory="true" />
         <activity
+            android:theme="@style/AppTheme.daynight"
             android:name=".ChannelUsersActivity"
             android:noHistory="true" />
-        <activity android:name=".ChannelMeccagesActivity" />
         <activity
+            android:theme="@style/AppTheme.daynight"
+            android:name=".ChannelMeccagesActivity" />
+        <activity
+            android:theme="@style/AppTheme.daynight"
             android:name=".ChannelActivity"
             android:noHistory="true" />
         <activity
             android:name=".ConfirmRequestActivity"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".SendMoneyActivity" />
-        <activity android:name=".RequestActivity" />
+        <activity
+            android:theme="@style/AppTheme.daynight"
+            android:name=".SendMoneyActivity" />
+        <activity
+            android:theme="@style/AppTheme.daynight"
+            android:name=".RequestActivity" />
         <activity
             android:name=".RequestChoiceActivity"
             android:theme="@style/AppTheme.PopMe" />
@@ -35,25 +50,34 @@
         <activity
             android:name=".AddChannel"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".Messages" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Messages"/>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.daynight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogRegActivity" />
-        <activity android:name=".Notes" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ChangeNameActivity" />
+        <activity android:name=".LogRegActivity"
+            android:theme="@style/AppTheme.daynight"/>
+        <activity android:name=".Notes"
+            android:theme="@style/AppTheme.daynight"/>
+        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".ChangeNameActivity"
+            android:theme="@style/AppTheme.daynight"/>
         <activity
             android:name=".WalletActivity"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:theme="@style/AppTheme.daynight"/>
         <activity
             android:name=".ShowRequestsActivity"
-            android:noHistory="true" />
-        <activity android:name=".UsersActivity" />
+            android:noHistory="true"
+            android:theme="@style/AppTheme.daynight"/>
+        <activity
+            android:name=".UsersActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.daynight"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

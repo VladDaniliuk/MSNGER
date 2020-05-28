@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class Messages extends AppCompatActivity {
 
     EditText mEditTextMessage;
     ImageButton mSendButton;
+    ImageView Icon;
     RecyclerView mMessagesRecycler;
     Button logOff;
     Button Notes;
@@ -95,6 +97,7 @@ public class Messages extends AppCompatActivity {
                     }
                 });
 
+        Icon = findViewById(R.id.icon);
         Wallet = findViewById(R.id.nav_wallet);
         Notes = findViewById(R.id.nav_notes);
         logOff =findViewById(R.id.logoff);
@@ -116,6 +119,15 @@ public class Messages extends AppCompatActivity {
         final DataAdapter dataAdapter = new DataAdapter(Messages.this,messages);
 
         mMessagesRecycler.setAdapter(dataAdapter);
+
+        Icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Messages.this,MyUserPageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         Settings.setOnClickListener(new View.OnClickListener() {
             @Override
