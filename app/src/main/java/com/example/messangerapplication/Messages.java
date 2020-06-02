@@ -300,3 +300,13 @@ public class Messages extends AppCompatActivity {
         return true;
     }
 }
+/*
+*
+*
+* добавить fragments и попробовать
+* сделать боковое меню через него
+* что бы можно было на него переключаться
+* без ведения от края
+*
+*
+* */

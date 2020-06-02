@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:elevation="100dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/upline">
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:background="@drawable/b_m_account" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="35sp"
+        android:text="Name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@id/upline" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15sp"
+        android:text="time"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginRight="5sp"
+        android:background="@drawable/more_options"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/upline" />
+
+    <Button
+        android:visibility="gone"
+        android:focusable="false"
+        android:id="@+id/delete_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/post"
+        android:textColor="@color/colorPrimary"
+        android:text = "Post"
+        android:textSize="22sp"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+    <ImageView
+        android:id="@+id/line"
+        android:layout_marginTop="2sp"
+        android:layout_marginBottom="2sp"
+        android:background="@color/darkGray"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="5sp"
+        android:layout_height="2sp"
+        app:layout_constraintTop_toBottomOf="@+id/post"/>
+
+    <ImageView
+        android:clickable="true"
+        android:layout_marginStart="5sp"
+        android:id="@+id/like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2sp"
+        android:src="@drawable/thumb_up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/dislike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2sp"
+        android:src="@drawable/thumb_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/comment"
+        android:layout_marginEnd="5sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2sp"
+        android:src="@drawable/comment_b"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/darkGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dislike"/>
+
+    <ImageView
+        android:id="@+id/upline"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/darkGray"
+        app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
