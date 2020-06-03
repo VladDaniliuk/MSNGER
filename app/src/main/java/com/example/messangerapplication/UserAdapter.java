@@ -102,9 +102,6 @@ public class UserAdapter extends RecyclerView.Adapter<ViewHolderUser> {
                                             });
                                 }
                             });
-                            button = settingsWindow.findViewById(R.id.delete_dialog);
-                            button.setVisibility(View.VISIBLE);
-                            button.invalidate();
                         } else {
                             Button button = settingsWindow.findViewById(R.id.create_dialog);
                             button.setOnClickListener(new View.OnClickListener() {
