@@ -29,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UserAdapter extends RecyclerView.Adapter<ViewHolderUser> {
     private ArrayList<User> users;
@@ -109,6 +111,7 @@ public class UserAdapter extends RecyclerView.Adapter<ViewHolderUser> {
                                 public void onClick(View view) {
                                     Mess message = new Mess();
                                     message.setMes("Теперь вы можете переписываться");
+                                    message.setType("mess");
                                     message.setUid("0");
                                     message.setUs("Admin");
 

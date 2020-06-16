@@ -35,6 +35,18 @@
             android:background="@drawable/send_mess_b_oval"
             android:contentDescription="send_message_button"
             android:src="@drawable/send_mess_b"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded" />
+
+        <ImageButton
+            android:id="@+id/send_file_b"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:background="@drawable/send_mess_b_oval"
+            android:contentDescription="send_message_button"
+            android:src="@drawable/attach_b"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
 

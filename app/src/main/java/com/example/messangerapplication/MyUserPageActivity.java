@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -82,9 +84,10 @@ public class MyUserPageActivity extends AppCompatActivity {
                 addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        status.setText(dataSnapshot.getValue(String.class));
+                        if(dataSnapshot.exists()) {
+                            status.setText(dataSnapshot.getValue(String.class));
+                        }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) { }
                 });
@@ -163,6 +166,7 @@ public class MyUserPageActivity extends AppCompatActivity {
                 TextView textPost = view.findViewById(R.id.post);
                 ImageView like = view.findViewById(R.id.like);
                 ImageView dislike = view.findViewById(R.id.dislike);
+                ImageView comment = view.findViewById(R.id.comment);
 
                 TextView likeKol = view.findViewById(R.id.like_col);
                 TextView dislikeKol = view.findViewById(R.id.dislike_col);
@@ -170,7 +174,6 @@ public class MyUserPageActivity extends AppCompatActivity {
                 name.setText(post.getName());
                 time.setText(post.getTime());
                 textPost.setText(post.getText());
-
 
                 myRef.child(id).child("like").addChildEventListener(new ChildEventListener() {
                     @Override
@@ -274,6 +277,18 @@ public class MyUserPageActivity extends AppCompatActivity {
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) { }
                                 });
+                    }
+                });
+
+                comment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(MyUserPageActivity.this, CommentActivity.class);
+                        intent.putExtra("ID", post.getId());
+                        intent.putExtra("UID", post.getUid());
+                        startActivity(intent);
+
                     }
                 });
 

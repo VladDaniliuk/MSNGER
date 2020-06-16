@@ -54,6 +54,7 @@ public class ChannelUserAdapter extends RecyclerView.Adapter<ViewHolderUser> {
                         if (!dataSnapshot.exists()) {
                             Mess message = new Mess();
                             message.setMes("Теперь вы можете переписываться");
+                            message.setType("mess");
                             message.setUid("0");
                             message.setUs("Admin");
 

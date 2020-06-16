@@ -1,16 +1,17 @@
 package com.example.messangerapplication.Models;
 
 public class Mess {
-    String mes,uid,us,mesuid,time;
+    String mes,uid,us,mesuid,time, type;
 
     public  Mess(){}
 
-    public Mess(String a, String b, String c, String e, String d){
+    public Mess(String a, String b, String c, String e, String d, String f){
         mes = a;
         uid = b;
         us = c;
         mesuid = e;
         time = d;
+        type = f;
     }
 
     public String getMes() {
@@ -51,5 +52,13 @@ public class Mess {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

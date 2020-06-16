@@ -16,4 +16,5 @@
 
     <style name="AppTheme.daynight" parent="Theme.AppCompat.DayNight" />
     <style name="AppTheme.without_action_bar" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
 </resources>

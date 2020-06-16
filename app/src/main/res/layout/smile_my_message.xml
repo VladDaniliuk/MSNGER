@@ -7,36 +7,34 @@
     android:orientation="horizontal"
     android:clickable="true"
     android:id="@+id/message"
-    android:layout_marginStart="50dp"
     android:layout_gravity="end">
-    <LinearLayout
-        android:id="@+id/mess"
-        android:layout_alignParentEnd = "true"
+    <RelativeLayout
+        android:layout_marginStart="50dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:padding="4dp"
-        tools:ignore="MissingConstraints"
-        android:background="@drawable/background_right"
-        android:orientation="vertical"
-        android:layout_gravity="right">
-            <TextView
-                android:fontFamily="@font/productsans"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/mess"
+            android:layout_alignParentEnd = "true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="4dp"
+            tools:ignore="MissingConstraints"
+            android:orientation="vertical"
+            android:layout_gravity="right">
+            <ImageView
                 android:layout_gravity="right"
-                android:id="@+id/message_item"
+                android:id="@+id/message_smile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="0dp"
-                android:text="myMessage"
-                android:textColor="@color/white"
-                android:textIsSelectable="true"
-                android:textSize="24sp" />
+                android:padding="0dp" />
             <TextView
                 android:layout_gravity="right"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimary"
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"/>
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
