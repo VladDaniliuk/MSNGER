@@ -13,19 +13,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ScrollView
+
+
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="0sp"
             android:layout_alignParentBottom="true"
-            android:id="@+id/smile_recycler"
-            android:layout_marginBottom="0dp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+            android:id="@+id/smile_recycler">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linearLayout"/>
-        </ScrollView>
+                android:layout_alignParentTop="true"
+                app:tabMode="scrollable" />
+        </androidx.viewpager.widget.ViewPager>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/text"

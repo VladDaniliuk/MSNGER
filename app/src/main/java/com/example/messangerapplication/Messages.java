@@ -5,8 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +27,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,12 +40,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.messangerapplication.Models.Mess;
 import com.example.messangerapplication.Models.User;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -62,11 +73,15 @@ public class Messages extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    static int PAGE_COUNT = 3;
+
     private static int MAX_MESSAGE_LENGTH = 1000;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Message");//отвечает за сообщения
     DatabaseReference myRefSmiles = FirebaseDatabase.getInstance().getReference().child("Smiles");
 
     DatabaseReference mR;
+
+    TabLayout mTabLayout;
 
     EditText mEditTextMessage;
     ImageButton mSendButton;
@@ -74,7 +89,8 @@ public class Messages extends AppCompatActivity {
     ImageButton aSendButton;
     ImageView Icon;
     RecyclerView mMessagesRecycler;
-    ScrollView mSmilesRecycler;
+    ViewPager mSmilesRecycler;
+    PagerAdapter pagerAdapter;
     Button logOff;
     Button Notes;
     Button Settings;
@@ -124,7 +140,11 @@ public class Messages extends AppCompatActivity {
         mEditTextMessage = findViewById(R.id.message_input);
         mDrawerLayout = findViewById(R.id.drawer);//боковое меню
         mMessagesRecycler = findViewById(R.id.messages_recycler);
+
         mSmilesRecycler = findViewById(R.id.smile_recycler);
+        pagerAdapter = new MyFragmentPagerAdapter(this, getSupportFragmentManager());
+        mSmilesRecycler.setAdapter(pagerAdapter);
+
         layout = findViewById(R.id.linearLayout);
 
         mMessagesRecycler.setHasFixedSize(true);
@@ -133,8 +153,6 @@ public class Messages extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
 
         mMessagesRecycler.setLayoutManager(linearLayoutManager);
-        //mSmilesRecycler.setLayoutManager(linearLayoutManager);
-
 
         final DataAdapter dataAdapter = new DataAdapter(Messages.this,messages);
 
@@ -219,7 +237,7 @@ public class Messages extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ViewGroup.LayoutParams params = mSmilesRecycler.getLayoutParams();
-                if (params.height == 450) {
+                if (params.height == 500) {
                     params.height = 0;
                     mSmilesRecycler.setLayoutParams(params);
                 }
@@ -239,7 +257,7 @@ public class Messages extends AppCompatActivity {
                         assert v != null;
                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     }
-                    params.height = 450;
+                    params.height = 500;
                     mSmilesRecycler.setLayoutParams(params);
                 } else {
                     params.height = 0;
@@ -319,136 +337,6 @@ public class Messages extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
-        myRefSmiles.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                View view = getLayoutInflater().inflate(R.layout.item_smiles,null);
-                LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams
-                        (getWindowManager().getDefaultDisplay().getWidth()/5,
-                                getWindowManager().getDefaultDisplay().getWidth()/5);
-
-                ImageView imageView1 = view.findViewById(R.id.smile1);
-                ImageView imageView2 = view.findViewById(R.id.smile2);
-                ImageView imageView3 = view.findViewById(R.id.smile3);
-                ImageView imageView4 = view.findViewById(R.id.smile4);
-                ImageView imageView5 = view.findViewById(R.id.smile5);
-
-                String id1 = dataSnapshot.child("1").getValue(String.class);
-                String id2 = dataSnapshot.child("2").getValue(String.class);
-                String id3 = dataSnapshot.child("3").getValue(String.class);
-                String id4 = dataSnapshot.child("4").getValue(String.class);
-                String id5 = dataSnapshot.child("5").getValue(String.class);
-
-                Picasso.with(imageView1.getContext()).load(id1).into(imageView1);
-                imageView1.setVisibility(View.VISIBLE);
-                imageView1.setLayoutParams(parms);
-
-                Picasso.with(imageView2.getContext()).load(id2).into(imageView2);
-                imageView2.setVisibility(View.VISIBLE);
-                imageView2.setLayoutParams(parms);
-
-                Picasso.with(imageView3.getContext()).load(id3).into(imageView3);
-                imageView3.setVisibility(View.VISIBLE);
-                imageView3.setLayoutParams(parms);
-
-                Picasso.with(imageView4.getContext()).load(id4).into(imageView4);
-                imageView4.setVisibility(View.VISIBLE);
-                imageView4.setLayoutParams(parms);
-
-                Picasso.with(imageView5.getContext()).load(id5).into(imageView5);
-                imageView5.setVisibility(View.VISIBLE);
-                imageView5.setLayoutParams(parms);
-
-                imageView1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Mess mess = new Mess();
-                        mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-                        mess.setUs(name);
-                        mess.setMes(id1);
-                        mess.setType("smile");
-                        mess.setUid(user.getUid());
-                        DatabaseReference mR =  myRef.push();
-                        String uid = mR.getKey();
-                        mess.setMesuid(uid);
-                        mR.setValue(mess);
-                    }
-                });
-                imageView2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Mess mess = new Mess();
-                        mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-                        mess.setUs(name);
-                        mess.setMes(id2);
-                        mess.setType("smile");
-                        mess.setUid(user.getUid());
-                        DatabaseReference mR =  myRef.push();
-                        String uid = mR.getKey();
-                        mess.setMesuid(uid);
-                        mR.setValue(mess);
-                    }
-                });
-                imageView3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Mess mess = new Mess();
-                        mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-                        mess.setUs(name);
-                        mess.setMes(id3);
-                        mess.setType("smile");
-                        mess.setUid(user.getUid());
-                        DatabaseReference mR =  myRef.push();
-                        String uid = mR.getKey();
-                        mess.setMesuid(uid);
-                        mR.setValue(mess);
-                    }
-                });
-                imageView4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Mess mess = new Mess();
-                        mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-                        mess.setUs(name);
-                        mess.setMes(id4);
-                        mess.setType("smile");
-                        mess.setUid(user.getUid());
-                        DatabaseReference mR =  myRef.push();
-                        String uid = mR.getKey();
-                        mess.setMesuid(uid);
-                        mR.setValue(mess);
-                    }
-                });
-                imageView5.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Mess mess = new Mess();
-                        mess.setTime(new SimpleDateFormat("HH:mm").format(new Date()));
-                        mess.setUs(name);
-                        mess.setMes(id5);
-                        mess.setType("smile");
-                        mess.setUid(user.getUid());
-                        DatabaseReference mR =  myRef.push();
-                        String uid = mR.getKey();
-                        mess.setMesuid(uid);
-                        mR.setValue(mess);
-                    }
-                });
-
-                layout.addView(view);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
-        });
-
         mToggle = new ActionBarDrawerToggle(Messages.this, mDrawerLayout,R.string.open,R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
@@ -474,8 +362,32 @@ public class Messages extends AppCompatActivity {
             public void onDrawerStateChanged(int newState) { }
         });
 
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        mTabLayout.setupWithViewPager(mSmilesRecycler);
+
         mToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+    }
+
+    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+        private Context context = null;
+
+        public MyFragmentPagerAdapter(Context context,FragmentManager fm) {
+            super(fm);
+            this.context = context;
+        }
+        @Override
+        public Fragment getItem(int position) {
+            return PageFragment.newInstance(position);
+        }
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+        @Override
+        public String getPageTitle(int position) {
+            return (PageFragment.getTitle(context, position));
+        }
     }
 
     @Override
@@ -517,6 +429,7 @@ public class Messages extends AppCompatActivity {
         }
     }
 
+
     private static long back_pressed;
 
     @Override
@@ -557,6 +470,7 @@ public class Messages extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
