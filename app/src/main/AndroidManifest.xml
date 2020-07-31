@@ -73,7 +73,7 @@
             android:theme="@style/AppTheme.daynight" />
         <activity
             android:name=".Notes"
-            android:theme="@style/AppTheme.daynight" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ChangeNameActivity"
