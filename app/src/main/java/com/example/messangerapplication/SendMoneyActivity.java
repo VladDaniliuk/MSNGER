@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -62,54 +63,51 @@ public class SendMoneyActivity extends AppCompatActivity {
         EditText Sum = findViewById(R.id.sum);
         ImageButton Send = findViewById(R.id.share);
 
-        Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String sum = Sum.getText().toString();
-                Sum.setText("");
-                if(sum.equals("")) {
-                    Toast.makeText(getApplicationContext(),"Введите сумму",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                int Summ = Integer.parseInt(sum);
-
-                myRef.child("Wallet").child(User.getUid()).addListenerForSingleValueEvent(
-                        new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        int a = dataSnapshot.getValue(Integer.class);
-                        if (a < Summ) {
-                            Toast.makeText(getApplicationContext(), "Вы не имеете такой " +
-                                            "суммы на счету",Toast.LENGTH_SHORT).show();
-                        } else {
-                            a -= Summ;
-                            myRef.child("Wallet").child(User.getUid()).setValue(a);
-                            myRef.child("Wallet").child(UID).addListenerForSingleValueEvent(
-                                    new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    int money = dataSnapshot.getValue(Integer.class);
-                                    money += Summ;
-                                    myRef.child("Wallet").child(UID).setValue(money);
-                                    Toast.makeText(getApplicationContext(), "Перевод средств" +
-                                            " успешно завершен", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(SendMoneyActivity.this,
-                                            WalletActivity.class));
-                                    finish();;
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
+        Send.setOnClickListener(view -> {
+            String sum = Sum.getText().toString();
+            Sum.setText("");
+            if(sum.equals("")) {
+                Toast.makeText(getApplicationContext(),"Введите сумму",
+                        Toast.LENGTH_SHORT).show();
+                return;
             }
+            int Summ = Integer.parseInt(sum);
+
+            myRef.child("Wallet").child(User.getUid()).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    int a = dataSnapshot.getValue(Integer.class);
+                    if (a < Summ) {
+                        Toast.makeText(getApplicationContext(), "Вы не имеете такой " +
+                                        "суммы на счету",Toast.LENGTH_SHORT).show();
+                    } else {
+                        a -= Summ;
+                        myRef.child("Wallet").child(User.getUid()).setValue(a);
+                        myRef.child("Wallet").child(UID).addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                int money = dataSnapshot.getValue(Integer.class);
+                                money += Summ;
+                                myRef.child("Wallet").child(UID).setValue(money);
+                                Toast.makeText(getApplicationContext(), "Перевод средств" +
+                                        " успешно завершен", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(SendMoneyActivity.this,
+                                        WalletActivity.class));
+                                finish();;
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
         });
     }
 

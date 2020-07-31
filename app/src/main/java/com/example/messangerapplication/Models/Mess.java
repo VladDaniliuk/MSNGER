@@ -1,17 +1,19 @@
 package com.example.messangerapplication.Models;
 
 public class Mess {
-    String mes,uid,us,mesuid,time, type;
+    String mes,uid,us,mesuid,time,type;
+    boolean isRead;
 
     public  Mess(){}
 
-    public Mess(String a, String b, String c, String e, String d, String f){
+    public Mess(String a, String b, String c, String e, String d, String f, boolean g){
         mes = a;
         uid = b;
         us = c;
         mesuid = e;
         time = d;
         type = f;
+        isRead = g;
     }
 
     public String getMes() {
@@ -60,5 +62,13 @@ public class Mess {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
     }
 }

@@ -14,8 +14,10 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     ImageView smileView;
     TextView message;
     TextView time;
+    ImageView confirm;
     ViewHolder(View itemView,int a) {
         super(itemView);
+        confirm = itemView.findViewById(R.id.confirm);
         message = itemView.findViewById(R.id.message_item);
         imageView = itemView.findViewById(R.id.message_image);
         smileView = itemView.findViewById(R.id.message_smile);

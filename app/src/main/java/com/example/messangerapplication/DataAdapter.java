@@ -35,11 +35,6 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.inflater = LayoutInflater.from(context);
     }
 
-    DataAdapter(UserMessagesActivity context, ArrayList<Mess> messages){
-        this.messages = messages;
-        this.inflater = LayoutInflater.from(context);
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -91,6 +86,9 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder> {
             holder.message.setText(msg.getMes());
         }
         holder.time.setText(msg.getTime());
+        if (msg.isRead()) {
+            holder.confirm.setImageResource(R.drawable.confirm_double);
+        }
     }
 
     @Override

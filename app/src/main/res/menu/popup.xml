@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_share_smiles"
+        android:title="smiles"
+        android:icon="@drawable/smile_b"/>
+    <item android:id="@+id/share_photo"
+        android:title="share photo"
+        android:icon="@drawable/attach_b_black"/>
+    <item android:id="@+id/share_money"
+        android:title="money"
+        android:icon="@drawable/send_money_b"/>
+    <item android:id="@+id/share_camera"
+        android:title="camera"
+        android:icon="@drawable/camera_b"/>
+</menu>

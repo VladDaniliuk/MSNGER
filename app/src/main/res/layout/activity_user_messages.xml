@@ -5,62 +5,140 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserMessagesActivity"
-    android:id = "@+id/drawer">
-    <RelativeLayout
+    android:id="@+id/drawer">
+<!-- edit text and buttons-->
+    <EditText
+        android:layout_marginRight="1sp"
+        android:layout_marginLeft="1sp"
+        android:id="@+id/message_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1sp"
+        android:background="@drawable/edit_text_background"
+        android:fontFamily="@font/productsans"
+        android:hint="Введите сообщение"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:minHeight="50sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="50sp"
+        android:textColor="@color/white"
+        android:textColorHint="#616161"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/smile_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/more" />
+
+    <ImageView
+        android:visibility="gone"
+        android:layout_marginRight="1sp"
+        android:layout_marginLeft="1sp"
+        android:id="@+id/more"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginVertical="11sp"
+        android:background="@drawable/edit_text_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:rotation="180"
+        android:src="@drawable/more_options"
+        app:layout_constraintBottom_toBottomOf="@id/message_input"
+        app:layout_constraintStart_toEndOf="@id/camera"/>
+
+    <ImageView
+        android:id="@+id/send_message_b"
+        android:layout_width="50dp"
+        android:layout_height="50sp"
+        android:paddingVertical="12.5sp"
+        android:layout_gravity="right"
+        android:src="@drawable/send_mess_b"
+        android:layout_marginRight="1sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/message_input"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/smiles"
+        android:layout_width="50dp"
+        android:layout_height="50sp"
+        android:layout_marginLeft="1sp"
+        android:background="@drawable/edit_text_background"
+        android:paddingVertical="12.5sp"
+        android:src="@drawable/smiles_b_white"
+        app:layout_constraintBottom_toBottomOf="@id/message_input"
+        app:layout_constraintStart_toStartOf="@+id/scrollView"
+        app:layout_constraintTop_toTopOf="@+id/message_input" />
+
+    <ImageView
+        android:layout_marginRight="1sp"
+        android:layout_marginLeft="1sp"
+        android:id="@+id/money"
+        android:layout_width="50dp"
+        android:layout_height="50sp"
+        android:background="@drawable/edit_text_background"
+        android:paddingVertical="12.5sp"
+        android:src="@drawable/send_money_b_white"
+        app:layout_constraintBottom_toBottomOf="@id/message_input"
+        app:layout_constraintStart_toEndOf="@+id/smiles"
+        app:layout_constraintTop_toTopOf="@+id/message_input" />
+
+    <ImageView
+        android:layout_marginRight="1sp"
+        android:layout_marginLeft="1sp"
+        android:id="@+id/camera"
+        android:layout_width="50dp"
+        android:layout_height="50sp"
+        android:background="@drawable/edit_text_background"
+        android:paddingVertical="12.5sp"
+        android:src="@drawable/camera_b_white"
+        app:layout_constraintBottom_toBottomOf="@id/message_input"
+        app:layout_constraintStart_toEndOf="@+id/money"
+        app:layout_constraintTop_toTopOf="@+id/message_input" />
+
+    <ImageView
+        android:id="@+id/send_file_b"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="1sp"
+        android:src="@drawable/attach_b"
+        app:layout_constraintBottom_toBottomOf="@+id/message_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/message_input" />
+
+    <!-- list of messages-->
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_above="@+id/text"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="1sp"
+        app:layout_constraintBottom_toTopOf="@+id/message_input"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-39dp">
 
         <LinearLayout
-            android:id="@+id/text"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:clickable="true"
+            android:orientation="vertical" />
+    </ScrollView>
 
-            <EditText
-                android:id="@+id/message_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:fontFamily="@font/productsans"
-                android:hint="Введите сообщение"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:textSize="24sp" />
+    <!-- list of smiles-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/smile_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-            <ImageButton
-                android:visibility="gone"
-                android:id="@+id/send_message_b"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:background="@drawable/send_mess_b_oval"
-                android:contentDescription="send_message_button"
-                android:src="@drawable/send_mess_b"
-                tools:ignore="RtlHardcoded" />
-
-            <ImageButton
-                android:id="@+id/send_file_b"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:background="@drawable/send_mess_b_oval"
-                android:contentDescription="send_message_button"
-                android:src="@drawable/attach_b"
-                tools:ignore="RtlHardcoded" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messages_recycler"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_above="@+id/text"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp" />
-    </RelativeLayout>
+            app:tabMode="scrollable" />
+    </androidx.viewpager.widget.ViewPager>
 </androidx.constraintlayout.widget.ConstraintLayout>

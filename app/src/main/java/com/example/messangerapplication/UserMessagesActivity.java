@@ -3,10 +3,18 @@ package com.example.messangerapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,8 +22,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.messangerapplication.Models.Mess;
@@ -32,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,18 +54,29 @@ import java.util.Date;
 
 public class UserMessagesActivity extends AppCompatActivity {
 
+    static int PAGE_COUNT = 6;
+
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("UserMessages");//отвечает за сообщения
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private static int MAX_MESSAGE_LENGTH = 1000;
 
+    private static String imageStoragePath;
 
+    ViewPager mSmilesRecycler;
     EditText mEditTextMessage;
-    ImageButton mSendButton;
-    ImageButton aSendButton;
-    RecyclerView mMessagesRecycler;
+    ImageView mSendButton;
+    ImageView aSendButton;
+    ImageView moreOptions;
     String ID;
     String UID;
+    ScrollView scrollView;
+    LinearLayout layout;
+    PagerAdapter pagerAdapter;
+
+    ImageView smileButton;
+    ImageView moneyButton;
+    ImageView cameraButton;
 
     ArrayList<Mess> messages = new ArrayList<>();
 
@@ -68,6 +94,9 @@ public class UserMessagesActivity extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
         ID = arguments.get("ID").toString();
         UID = arguments.get("UID").toString();
+
+        scrollView = findViewById(R.id.scrollView);
+        layout = findViewById(R.id.linearLayout);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -93,21 +122,79 @@ public class UserMessagesActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) { }
                 });
 
+        mSmilesRecycler = findViewById(R.id.smile_recycler);
         mSendButton = findViewById(R.id.send_message_b);
         mEditTextMessage = findViewById(R.id.message_input);
         aSendButton = findViewById(R.id.send_file_b);
+        moreOptions = findViewById(R.id.more);
 
-        mMessagesRecycler = findViewById(R.id.messages_recycler);
-        mMessagesRecycler.setHasFixedSize(true);
+        smileButton = findViewById(R.id.smiles);
+        moneyButton = findViewById(R.id.money);
+        cameraButton = findViewById(R.id.camera);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
 
-        mMessagesRecycler.setLayoutManager(linearLayoutManager);
+        pagerAdapter = new MyFragmentPagerAdapter(this, getSupportFragmentManager());
+        mSmilesRecycler.setAdapter(pagerAdapter);
 
-        final DataAdapter dataAdapter = new DataAdapter(UserMessagesActivity.this,messages);
+        mEditTextMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewGroup.LayoutParams params = mSmilesRecycler.getLayoutParams();
+                if (params.height == 500) {
+                    params.height = 1;
+                    mSmilesRecycler.setLayoutParams(params);
+                }
+            }
+        });
 
-        mMessagesRecycler.setAdapter(dataAdapter);
+        moneyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference().child("Wallet").
+                        addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.child(user.getUid()).exists()) {
+                                    Intent i = new Intent(getApplicationContext(),
+                                            SendRequestMoneyMessActivity.class);
+                                    i.putExtra("UID", UID);
+                                    startActivity(i);
+                                } else {
+                                    showDialog(1);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+            }
+        });
+
+        smileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewGroup.LayoutParams params = mSmilesRecycler.getLayoutParams();
+                if (params.height == 500) {
+                    params.height = 1;
+                    mSmilesRecycler.setLayoutParams(params);
+                } else {
+                    InputMethodManager imm = (InputMethodManager) UserMessagesActivity.this.getSystemService(Context
+                            .INPUT_METHOD_SERVICE);
+                    assert imm != null;
+                    if (imm.isAcceptingText()){
+                        View v = getCurrentFocus();
+                        assert v != null;
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                    params.height = 500;
+                    mSmilesRecycler.setLayoutParams(params);
+                }
+            }
+        });
 
         mEditTextMessage.addTextChangedListener(new TextWatcher() {
             @Override
@@ -118,8 +205,16 @@ public class UserMessagesActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(mEditTextMessage.getText().toString().equals("")) {
                     mSendButton.setVisibility(View.GONE);
+                    moreOptions.setVisibility(View.GONE);
+                    smileButton.setVisibility(View.VISIBLE);
+                    moneyButton.setVisibility(View.VISIBLE);
+                    cameraButton.setVisibility(View.VISIBLE);
                     aSendButton.setVisibility(View.VISIBLE);
                 } else {
+                    moreOptions.setVisibility(View.VISIBLE);
+                    smileButton.setVisibility(View.GONE);
+                    moneyButton.setVisibility(View.GONE);
+                    cameraButton.setVisibility(View.GONE);
                     mSendButton.setVisibility(View.VISIBLE);
                     aSendButton.setVisibility(View.GONE);
                 }
@@ -127,6 +222,70 @@ public class UserMessagesActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        moreOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.setClipToOutline(true);
+
+                PopupMenu menu = new PopupMenu(UserMessagesActivity.this, moreOptions);
+                menu.inflate(R.menu.popup);
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        return false;
+                    }
+                });
+                menu.setForceShowIcon(true);
+                menu.show();
+
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.menu_share_smiles:
+                                ViewGroup.LayoutParams params = mSmilesRecycler.getLayoutParams();
+                                if (params.height == 500) {
+                                    params.height = 1;
+                                    mSmilesRecycler.setLayoutParams(params);
+                                } else {
+                                    InputMethodManager imm = (InputMethodManager) UserMessagesActivity.this.getSystemService(Context
+                                            .INPUT_METHOD_SERVICE);
+                                    assert imm != null;
+                                    if (imm.isAcceptingText()){
+                                        View v = getCurrentFocus();
+                                        assert v != null;
+                                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                    }
+                                    params.height = 500;
+                                    mSmilesRecycler.setLayoutParams(params);
+                                }
+                                return true;
+                            case R.id.share_photo:
+                                Toast.makeText(getBaseContext(), "Press once again to exit!",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.share_money:
+                                Toast.makeText(getBaseContext(), "Press once again to exit!",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.share_camera:
+                                Toast.makeText(getBaseContext(), "Press once again to exit!",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return true;
+                        }
+                    }
+                });
+            }
+        });
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
 
@@ -138,6 +297,7 @@ public class UserMessagesActivity extends AppCompatActivity {
                 photoPickerIntent.setType("image/*");
                 //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
                 startActivityForResult(photoPickerIntent, 1);
+
             }
         });
 
@@ -145,11 +305,6 @@ public class UserMessagesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String msg = mEditTextMessage.getText().toString();
-                if(msg.equals("")){
-                    Toast.makeText(getApplicationContext(),"Введите сообщение",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if(msg.length() > MAX_MESSAGE_LENGTH){
                     Toast.makeText(getApplicationContext(),"Слишком длинное сообщение",Toast
                             .LENGTH_SHORT).show();
@@ -175,20 +330,61 @@ public class UserMessagesActivity extends AppCompatActivity {
                 String msg = dataSnapshot.child("mes").getValue(String.class);
                 String usr = dataSnapshot.child("us").getValue(String.class);
                 String uid = dataSnapshot.child("uid").getValue(String.class);
-                String time = dataSnapshot.child("time").getValue(String.class);
+                String tm = dataSnapshot.child("time").getValue(String.class);
                 String mesUid = dataSnapshot.child("mesuid").getValue(String.class);
                 String type = dataSnapshot.child("type").getValue(String.class);
 
-                Mess mess = new Mess();
-                mess.setTime(time);
-                mess.setMes(msg);
-                mess.setType(type);
-                mess.setUs(usr);
-                mess.setMesuid(mesUid);
-                mess.setUid(uid);
-                messages.add(mess);
-                dataAdapter.notifyDataSetChanged();
-                mMessagesRecycler.smoothScrollToPosition(messages.size());
+                View view;
+
+                if (type.equals("image")){
+                    if(uid.equals(user.getUid())) {
+                        view = getLayoutInflater().inflate(R.layout.image_my_message,null);
+                    } else {
+                        view = getLayoutInflater().inflate(R.layout.image_message,null);
+                        TextView sender = view.findViewById(R.id.sender);
+                        sender.setText(usr);
+                    }
+                    ImageView imageView = view.findViewById(R.id.message_image);
+                    Picasso.with(imageView.getContext()).load(msg).
+                            resize(500,500).into(imageView);
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(imageView.getContext(), ImageActivity.class);
+                            intent.putExtra("image_id", msg);
+                            imageView.getContext().startActivity(intent);
+                        }
+                    });
+                } else if (type.equals("smile")) {
+                    if(uid.equals(user.getUid())) {
+                        view = getLayoutInflater().inflate(R.layout.smile_my_message,null);
+                    } else {
+                        view = getLayoutInflater().inflate(R.layout.smile_message,null);
+                        TextView sender = view.findViewById(R.id.sender);
+                        sender.setText(usr);
+                    }
+                    ImageView smileView = view.findViewById(R.id.message_smile);
+                    Picasso.with(smileView.getContext()).load(msg).into(smileView);
+                    smileView.setVisibility(View.VISIBLE);
+                } else {
+                    if(uid.equals(user.getUid())) {
+                        view = getLayoutInflater().inflate(R.layout.item_my_message,null);
+                    } else {
+                        view = getLayoutInflater().inflate(R.layout.item_message,null);
+                        TextView sender = view.findViewById(R.id.sender);
+                        sender.setText(usr);
+                    }
+                    TextView message = view.findViewById(R.id.message_item);
+                    message.setText(msg);
+                }
+
+                TextView time = view.findViewById(R.id.time);
+                time.setText(tm);
+
+                layout.addView(view);
+
+                scrollView.scrollToDescendant(view);
             }
 
             @Override
@@ -203,6 +399,49 @@ public class UserMessagesActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
+        
+        
+    }
+
+    protected Dialog onCreateDialog(int id) {
+        if (id == 1) {
+            final AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            // заголовок
+            adb.setTitle("Ошибка");
+            // сообщение
+            adb.setMessage("У вас отсутствует электронный кошелёк. Что бы его активировать, " +
+                    "перейдите во вкладку Wallet.");
+            adb.setCancelable(false);
+            // кнопка положительного ответа
+            adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+            // создаем диалог
+            return adb.create();
+        }
+        return super.onCreateDialog(id);
+    }
+
+    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+        private Context context = null;
+
+        public MyFragmentPagerAdapter(Context context, FragmentManager fm) {
+            super(fm);
+            this.context = context;
+        }
+        @Override
+        public Fragment getItem(int position) {
+            return PageFragment.newInstance(position,myRef.child(ID));
+        }
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+        @Override
+        public String getPageTitle(int position) {
+            return (PageFragment.getTitle(context, position));
+        }
     }
 
 
@@ -231,7 +470,6 @@ public class UserMessagesActivity extends AppCompatActivity {
                         DatabaseReference mR = myRef.child(ID).push();
 
                         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child("image").child(mR.getKey());
-
 
                         mStorageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override

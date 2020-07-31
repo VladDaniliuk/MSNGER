@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -32,6 +33,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,7 +76,7 @@ public class Messages extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    static int PAGE_COUNT = 3;
+    static int PAGE_COUNT = 6;
 
     private static int MAX_MESSAGE_LENGTH = 1000;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Message");//отвечает за сообщения
@@ -296,6 +299,7 @@ public class Messages extends AppCompatActivity {
                 mess.setUs(name);
                 mess.setMes(msg);
                 mess.setType("mess");
+                mess.setRead(false);
                 mess.setUid(user.getUid());
                 DatabaseReference mR =  myRef.push();
                 String uid = mR.getKey();
@@ -314,9 +318,16 @@ public class Messages extends AppCompatActivity {
                 String time = dataSnapshot.child("time").getValue(String.class);
                 String mesUid = dataSnapshot.child("mesuid").getValue(String.class);
                 String type = dataSnapshot.child("type").getValue(String.class);
+                boolean isRead = dataSnapshot.child("read").getValue(Boolean.class);
+
+                if(!uid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid().toString())) {
+                    myRef.child(mesUid).child("read").setValue(true);
+                    isRead = true;
+                }
 
                 Mess mess = new Mess();
                 mess.setTime(time);
+                mess.setRead(isRead);
                 mess.setMes(msg);
                 mess.setType(type);
                 mess.setUs(usr);
@@ -378,7 +389,7 @@ public class Messages extends AppCompatActivity {
         }
         @Override
         public Fragment getItem(int position) {
-            return PageFragment.newInstance(position);
+            return PageFragment.newInstance(position,myRef);
         }
         @Override
         public int getCount() {

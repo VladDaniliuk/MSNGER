@@ -7,14 +7,17 @@
     android:orientation="horizontal"
     android:clickable="true"
     android:id="@+id/message"
+    android:layout_marginStart="50dp"
+    android:gravity="end"
     android:layout_gravity="end">
-    <RelativeLayout
-        android:layout_marginStart="50dp"
+
+    <LinearLayout
+        android:id="@+id/mes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/mess"
-            android:layout_alignParentEnd = "true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -22,6 +25,7 @@
             tools:ignore="MissingConstraints"
             android:orientation="vertical"
             android:layout_gravity="right">
+
             <ImageView
                 android:layout_gravity="right"
                 android:id="@+id/message_smile"
@@ -35,6 +39,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"/>
+            <ImageView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/confirm"
+                android:src="@drawable/confirm"/>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

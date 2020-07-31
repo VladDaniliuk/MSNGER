@@ -1,5 +1,7 @@
 package com.example.messangerapplication;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,10 +32,33 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PageFragment extends Fragment {
+public class PageFragment extends AbsSmiles {
 
-    private static String[] smiles = {"Pepe","LGBT","Faces"};
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("Message");//отвечает за сообщения
+    private static DatabaseReference myRef;
+
+    static PageFragment newInstance (int page,DatabaseReference db) {
+        PageFragment pageFragment = new PageFragment();
+        myRef = db;
+        Bundle arguments = new Bundle();
+        arguments.putInt(ARGUMENT_PAGE_NUMBER, page);
+        pageFragment.setArguments(arguments);
+        return pageFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageNumber = getArguments().getInt(ARGUMENT_PAGE_NUMBER);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return setSmiles(inflater,container,savedInstanceState,myRef);
+    }
+}
+
+abstract class AbsSmiles extends Fragment {
+    private static String[] smiles = {"Pepe", "LGBT", "Faces", "Logos", "Minecraft", "PUBG"};
     DatabaseReference myRefSmiles = FirebaseDatabase.getInstance().getReference().child("Smiles");
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -43,7 +68,7 @@ public class PageFragment extends Fragment {
     int pageNumber;
     static final String ARGUMENT_PAGE_NUMBER = "arg_page_number";
 
-    static PageFragment newInstance (int page) {
+    static PageFragment newInstance(int page) {
         PageFragment pageFragment = new PageFragment();
         Bundle arguments = new Bundle();
         arguments.putInt(ARGUMENT_PAGE_NUMBER, page);
@@ -61,9 +86,8 @@ public class PageFragment extends Fragment {
         return smiles[position];
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view1 = inflater.inflate(R.layout.fragment1,null);
+    protected View setSmiles(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState, DatabaseReference myRef) {
+        View view1 = inflater.inflate(R.layout.fragment1, null);
 
         layout = view1.findViewById(R.id.linearLayout);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -80,14 +104,15 @@ public class PageFragment extends Fragment {
 
                     }
                 });
-        myRefSmiles.child(String.valueOf(pageNumber+1)).addChildEventListener(new ChildEventListener() {
+
+        myRefSmiles.child(String.valueOf(pageNumber + 1)).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                View view = getLayoutInflater().inflate(R.layout.item_smiles,null);
+                View view = getLayoutInflater().inflate(R.layout.item_smiles, null);
                 LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams
-                        (view1.getWidth()/5,
-                                view1.getWidth()/5);
+                        (view1.getWidth() / 5,
+                                view1.getWidth() / 5);
 
                 ImageView[] imageViews = {
                         view.findViewById(R.id.smile1),
@@ -116,31 +141,31 @@ public class PageFragment extends Fragment {
                         mess.setMesuid(uid);
                         switch (view.getId()) {
                             case R.id.smile1:
-                                if(imageViews[0].getDrawable() != null) {
+                                if (imageViews[0].getDrawable() != null) {
                                     mess.setMes(ids[0]);
                                     mR.setValue(mess);
                                 }
                                 break;
                             case R.id.smile2:
-                                if(imageViews[1].getDrawable() != null) {
+                                if (imageViews[1].getDrawable() != null) {
                                     mess.setMes(ids[1]);
                                     mR.setValue(mess);
                                 }
                                 break;
                             case R.id.smile3:
-                                if(imageViews[2].getDrawable() != null) {
+                                if (imageViews[2].getDrawable() != null) {
                                     mess.setMes(ids[2]);
                                     mR.setValue(mess);
                                 }
                                 break;
                             case R.id.smile4:
-                                if(imageViews[3].getDrawable() != null) {
+                                if (imageViews[3].getDrawable() != null) {
                                     mess.setMes(ids[3]);
                                     mR.setValue(mess);
                                 }
                                 break;
                             case R.id.smile5:
-                                if(imageViews[4].getDrawable() != null) {
+                                if (imageViews[4].getDrawable() != null) {
                                     mess.setMes(ids[4]);
                                     mR.setValue(mess);
                                 }
@@ -151,7 +176,7 @@ public class PageFragment extends Fragment {
                     }
                 };
 
-                for(int i = 0;i < 5;i++) {
+                for (int i = 0; i < 5; i++) {
                     Picasso.with(imageViews[i].getContext()).load(ids[i]).into(imageViews[i]);
                     imageViews[i].setVisibility(View.VISIBLE);
                     imageViews[i].setLayoutParams(parms);
@@ -162,16 +187,22 @@ public class PageFragment extends Fragment {
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            }
+
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
+
         return view1;
     }
-
-
 }

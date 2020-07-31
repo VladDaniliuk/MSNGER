@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,6 +14,7 @@
         android:orientation="horizontal">
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,6 +25,7 @@
             android:textAllCaps="false" />
 
         <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:id="@+id/create"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -41,7 +42,9 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="10dp"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_addres_of_channel" />
+        android:hint="@string/enter_addres_of_channel"
+        android:autofillHints="false"
+        android:inputType="text" />
 
     <EditText
         android:visibility="invisible"
@@ -50,6 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:autofillHints="false"
+        android:inputType="text"
         android:hint="Введите название канала" />
 
     <EditText

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -101,7 +102,7 @@ public class WalletActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Заработать валюту на просмотре " +
                                 "рекламы можно будет в скором времени",
                         Toast.LENGTH_SHORT).show();
-                return;
+
             }
         });
     }

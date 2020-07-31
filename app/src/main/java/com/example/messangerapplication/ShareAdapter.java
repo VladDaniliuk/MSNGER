@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,47 +44,30 @@ public class ShareAdapter extends RecyclerView.Adapter<ViewHolderShare> {
         final Share sh = shares.get(position);
         holder.mail.setText(sh.getMail());
         holder.name.setText(sh.getName());
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference db = FirebaseDatabase.getInstance().getReference().
-                        child("Wallet");
-                db.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (!dataSnapshot.child(sh.getUID()).exists()) {
-                            holder.redButton.setVisibility(View.VISIBLE);
-                            new CountDownTimer(1000, 100) {
-                                public void onTick(long millisUntilFinished) {
-                                }
-
-                                public void onFinish() {
-                                    holder.redButton.setVisibility(View.INVISIBLE);
-                                }
-                            }.start();
-                        } else if (sh.getUID().equals(U.getUid())) {
-                            holder.YourProf.setVisibility(View.VISIBLE);
-                            new CountDownTimer(1000, 100) {
-                                public void onTick(long millisUntilFinished) {
-                                }
-
-                                public void onFinish() {
-                                    holder.YourProf.setVisibility(View.INVISIBLE);
-                                }
-                            }.start();
-                        } else {
-                            Intent intent = new Intent(holder.button.getContext(), SendMoneyActivity.class);
-                            intent.putExtra("UID",sh.getUID().toString());
-                            holder.button.getContext().startActivity(intent);
-                        }
+        holder.button.setOnClickListener(view -> {
+            DatabaseReference db = FirebaseDatabase.getInstance().getReference().
+                    child("Wallet");
+            db.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.child(sh.getUID()).exists()) {
+                        Toast.makeText(holder.button.getContext(),"Этот пользователь не" +
+                                        " имеет кошелька", Toast.LENGTH_SHORT).show();
+                    } else if (sh.getUID().equals(U.getUid())) {
+                        Toast.makeText(holder.button.getContext(),"Это ваш аккаунт",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(holder.button.getContext(), SendMoneyActivity.class);
+                        intent.putExtra("UID", sh.getUID());
+                        holder.button.getContext().startActivity(intent);
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-            }
+                }
+            });
         });
     }
 
