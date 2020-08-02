@@ -176,7 +176,9 @@ public class Notes extends AppCompatActivity {
                 TextView note = view.findViewById(R.id.note_item);
                 note.setText(nt);
 
-                view.setOnLongClickListener(view1 -> {
+                LinearLayout ll = view.findViewById(R.id.qqw);
+                
+                ll.setOnLongClickListener(view1 -> {
                     Context context;
                     AlertDialog dialog = new AlertDialog.Builder(Notes.this).setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         @Override
