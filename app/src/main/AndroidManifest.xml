@@ -2,17 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.messangerapplication">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SendRequestMoneyMessActivity"
+        <activity
+            android:name=".SendRequestMoneyMessActivity"
             android:theme="@style/AppTheme.PopMe" />
         <activity android:name=".ImageActivity" />
         <activity android:name=".CommentActivity" />
@@ -73,7 +70,7 @@
             android:theme="@style/AppTheme.daynight" />
         <activity
             android:name=".Notes"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ChangeNameActivity"
@@ -95,5 +92,9 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2830062687302437~7300093995" />
     </application>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
 </manifest>
