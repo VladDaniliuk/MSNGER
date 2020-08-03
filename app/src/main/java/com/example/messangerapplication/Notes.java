@@ -35,6 +35,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.shape.AdjustedCornerSize;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -92,10 +93,20 @@ public class Notes extends AppCompatActivity {
             View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_note_add, (LinearLayout)findViewById(R.id.add_note),false);
             bottomSheetDialog.setContentView(bottomSheetView);
 
+
             bottomSheetDialog.show();
 
             Button buttonSaveNote = bottomSheetView.findViewById(R.id.button_save_note);
             EditText editTextNewNote = bottomSheetView.findViewById(R.id.editText_new_note);
+            TextView buttonAddHashtag = bottomSheetView.findViewById(R.id.add_hashtag);
+
+            buttonAddHashtag.setOnClickListener(view1 -> {
+                LinearLayout listHashtag = bottomSheetView.findViewById(R.id.hashtag);
+                View view2 = getLayoutInflater().inflate(R.layout.item_add_note_hashtag,null);
+                listHashtag.addView(view2);
+
+                EditText editTextHashtag = view2.findViewById(R.id.editText);
+            });
 
             buttonSaveNote.setOnClickListener(view1 -> {
                 String nt = editTextNewNote.getText().toString();
@@ -177,7 +188,7 @@ public class Notes extends AppCompatActivity {
                 note.setText(nt);
 
                 LinearLayout ll = view.findViewById(R.id.qqw);
-                
+
                 ll.setOnLongClickListener(view1 -> {
                     Context context;
                     AlertDialog dialog = new AlertDialog.Builder(Notes.this).setPositiveButton("Delete", new DialogInterface.OnClickListener() {
