@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/background_activity_add_note"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:inputType="textPersonName"
+        android:id="@+id/editText_new_hashtag"
+        android:lines="1"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:hint="Новая метка"
+        app:layout_constraintBottom_toBottomOf="@+id/button_new_hashtag"
+        app:layout_constraintEnd_toStartOf="@+id/button_new_hashtag"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_new_hashtag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добавить"
+        android:textAllCaps="false"
+        style="@style/TransparentBackground"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView_hashtags"
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        app:layout_constraintTop_toBottomOf="@+id/button_new_hashtag" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout_list_hashtag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        style="@style/TransparentBackground"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:text="Готово"
+        android:textAllCaps="false"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView_hashtags" />
+</androidx.constraintlayout.widget.ConstraintLayout>

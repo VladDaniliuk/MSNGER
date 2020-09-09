@@ -34,21 +34,18 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
         auth = FirebaseAuth.getInstance();
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            auth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(MainActivity.this,
-                                "Authorisation successful!",
-                                Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, Messages.class));
-                        finish();
-                    } else {
-                        Toast.makeText(MainActivity.this,
-                                "Failed to authorise user.",
-                                Toast.LENGTH_SHORT).show();
-                        startRotationTimer();
-                    }
+            auth.getCurrentUser().reload().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(MainActivity.this,
+                            "Authorisation successful!",
+                            Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, Messages.class));
+                    finish();
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            "Failed to authorise user.",
+                            Toast.LENGTH_SHORT).show();
+                    startRotationTimer();
                 }
             });
         } else {

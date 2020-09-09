@@ -26,7 +26,7 @@
                 android:paddingRight="5sp"
                 android:id="@+id/add_hashtag"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0sp"
                 android:gravity="center"
                 android:clickable="true"
                 android:text="Добавить мету"
